@@ -7,7 +7,7 @@
 
 #ifndef COMMON_H
 #define	COMMON_H
-#define dt 0.0025
+#define dt 0.01
 
 #ifdef	__cplusplus
 extern "C" {

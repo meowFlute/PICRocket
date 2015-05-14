@@ -4,9 +4,9 @@
 #include <libpic30.h>
 #include "common.h"
 #include "MPU6050.h"
-#define gyro_xsensitivity 66.5 //66.5 Dead on at last check
-#define gyro_ysensitivity 66.5 //72.7 Dead on at last check
-#define gyro_zsensitivity 65.5
+#define gyro_xsensitivity 16.5 //66.5 Dead on at last check
+#define gyro_ysensitivity 16.5 //72.7 Dead on at last check
+#define gyro_zsensitivity 16.5
 #define a 0.01
 
 //**************************************
@@ -346,9 +346,9 @@ void Get_Accel_Angles()
 	//ACCEL_YANGLE = 57.295*atan((float)-ACCEL_XOUT/ sqrt(pow((float)ACCEL_ZOUT,2)+pow((float)ACCEL_YOUT,2)))*a + (1-a)*ACCEL_YANGLE;
 
 	//ACCEL_XANGLE = 57.295*atan((float)ACCEL_YOUT/ sqrt(pow((float)ACCEL_ZOUT,2)+pow((float)ACCEL_XOUT,2)));
-	ACCEL_YANGLE = 57.295*atan((float)ACCEL_XOUT/ sqrt(pow((float)ACCEL_ZOUT,2)+pow((float)ACCEL_YOUT,2)));
-        ACCEL_XANGLE = 57.295*atan((float)ACCEL_YOUT/ sqrt(pow((float)ACCEL_XOUT,2)+pow((float)ACCEL_ZOUT,2)));
-        ACCEL_ZANGLE = 57.295*atan((float)ACCEL_ZOUT/ sqrt(pow((float)ACCEL_XOUT,2)+pow((float)ACCEL_YOUT,2)));
+	ACCEL_XANGLE = 57.295*atan((float)ACCEL_XOUT/ sqrt(pow((float)ACCEL_ZOUT,2)+pow((float)ACCEL_YOUT,2)));
+        ACCEL_YANGLE = 57.295*atan((float)ACCEL_ZOUT/ sqrt(pow((float)ACCEL_XOUT,2)+pow((float)ACCEL_YOUT,2)));
+        ACCEL_ZANGLE = 57.295*atan((float)ACCEL_YOUT/ sqrt(pow((float)ACCEL_XOUT,2)+pow((float)ACCEL_ZOUT,2)));
 }
 
 //Function to read the gyroscope rate data and convert it into degrees/s

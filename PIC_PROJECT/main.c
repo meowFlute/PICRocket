@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <i2c.h>
 #define DELAY 64000
-#define timerCount 1638
+#define timerCount 164
 
 
 
@@ -19,7 +19,7 @@ void Setup_PWM();
 void Setup_I2C1(void);
 void Actuate_Servo(unsigned short servoNum, float angle);
 
-unsigned int OC4R;
+unsigned int OC4R, _TMR3, _PR3;
 volatile unsigned int* const PWMReg[] = {&OC1R, &OC2R, &OC3R, &OC4R};
 
 int main()
@@ -90,7 +90,7 @@ void Setup_PWM()
     _T3IF = 0;
     _T3IP = 5;
     PR3 = 10486;    //Period Value for a 50Hz timer with 1:8 prescaling mode and 8mhz clock
-
+            
     //Edge-Aligned PWM mode
     OC1CON1bits.OCM = 0b110;
     OC2CON1bits.OCM = 0b110;
@@ -206,14 +206,14 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Accel_Values();
     Get_Accel_Angles();
 
-    Actuate_Servo(0,ACCEL_XANGLE + 90);
-    Actuate_Servo(3,ACCEL_ZANGLE + 90);
+    Actuate_Servo(0,GYRO_XANGLE + 90);
+    Actuate_Servo(1,GYRO_YANGLE + 90);
 }
 
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
 {
     _T3IF = 0;
-    if (TMR3 <= OC4R)
+    if (_TMR3 <= OC4R)
     {
         _LATA1 = 1;
     }
