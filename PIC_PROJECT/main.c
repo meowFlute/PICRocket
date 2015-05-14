@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <i2c.h>
 #define DELAY 64000
-#define timerCount 16384
+#define timerCount 1638
 
 
 
@@ -46,7 +46,6 @@ int main()
     Setup_Timer1();
     Setup_PWM();
 
-    Actuate_Servo(0,0);
     while(1){}
     
     return (EXIT_SUCCESS);
@@ -54,7 +53,7 @@ int main()
 void Actuate_Servo(unsigned short servoNum, float angle)
 {
     /* Servo moves between 0 degrees and 180 degrees, 90 degrees is along rocket body */
-    unsigned int OCR = 315+(angle/180)*943;
+    unsigned int OCR = 315+(angle/180)*840;
     *PWMReg[servoNum] = OCR;
 }
 void Setup_PWM()
@@ -117,6 +116,10 @@ void Setup_PWM()
     OC2R = 786;
     OC3R = 786;
     OC4R = 786;
+
+    //Start Timers
+    T2CONbits.TON = 1;
+    T3CONbits.TON = 1;
 }
 void Setup_I2C1(void)
 {
@@ -172,7 +175,6 @@ void Setup_I2C1(void)
 
 void Setup_Timer1()
 {
-	IEC0bits.T1IE = 0; //Disable timer1 interrupt
 	T1CONbits.TON = 0; //Disable timer
 	T1CONbits.TSIDL = 0; //Continue operation in idle mode
 	T1CONbits.TGATE = 0; //Timer gate accumulation disabled
@@ -181,7 +183,7 @@ void Setup_Timer1()
 	T1CONbits.TCS = 0; //Internal clock source
 
 	_T1IP = 0b100; //Priority 4
-        _T1IF = 0;
+        _T1IF = 1;
         _T1IE = 1;
 
 	//Frequency of 400Hz
@@ -195,22 +197,22 @@ void __attribute__((interrupt,no_auto_psv)) _MI2C1Interrupt(void)
 {
   MI2C1_Clear_Intr_Status_Bit;  //Clear Interrupt status of I2C1
 }
-
+unsigned int servoCount = 0;
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 {
     _T1IF = 0;  //clear interrupt flag
-    _T1IE = 0;  //Disable timer1 interrupt
     LATAbits.LATA2 ^= 1;
     Get_Gyro_Rates();
     Get_Accel_Values();
     Get_Accel_Angles();
-    _T1IE = 1;
 
+    Actuate_Servo(0,ACCEL_XANGLE + 90);
+    Actuate_Servo(3,ACCEL_ZANGLE + 90);
 }
 
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
 {
-    _T1IF = 0;
+    _T3IF = 0;
     if (TMR3 <= OC4R)
     {
         _LATA1 = 1;
