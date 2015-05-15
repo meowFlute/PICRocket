@@ -9,8 +9,6 @@
 #define DELAY 64000
 #define timerCount 164
 
-
-
 #pragma config FWDTEN = OFF   // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
 _FOSCSEL(FNOSC_FRC);          // 8MHz oscillator
 
@@ -34,11 +32,7 @@ int main()
     Setup_I2C1();
 
     //Initialize the accelerometer
-    do{
-        Setup_MPU6050();
-        MPU6050_Test_I2C();
-        error = MPU6050_Check_Registers();
-    }while(error==1);
+    Setup_MPU6050();
 
     Calibrate_Gyros();
     Zero_Sensors();
@@ -206,8 +200,8 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Accel_Values();
     Get_Accel_Angles();
 
-    Actuate_Servo(0,GYRO_XANGLE + 90);
-    Actuate_Servo(1,GYRO_YANGLE + 90);
+    //Actuate_Servo(0,GYRO_XANGLE + 90);
+    Actuate_Servo(0,GYRO_ZANGLE + 90);
 }
 
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()

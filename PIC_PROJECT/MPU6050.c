@@ -4,10 +4,9 @@
 #include <libpic30.h>
 #include "common.h"
 #include "MPU6050.h"
-#define gyro_xsensitivity 16.5 //66.5 Dead on at last check
-#define gyro_ysensitivity 16.5 //72.7 Dead on at last check
-#define gyro_zsensitivity 16.5
-#define a 0.01
+#define gyro_xsensitivity 16
+#define gyro_ysensitivity 16
+#define gyro_zsensitivity 16
 
 //**************************************
 //MPU6050 init
@@ -18,11 +17,11 @@ UINT8 Setup_MPU6050(void)
 {
     UINT8 Data;
     //Reset entire device
-    //LDByteWriteI2C(MPU6050_ADDRESS, MPU6050_RA_PWR_MGMT_1, 0x80);
-    //__delay_ms(1);
+    LDByteWriteI2C(MPU6050_ADDRESS, MPU6050_RA_PWR_MGMT_1, 0x80);
+    __delay_ms(1);
     //it turns out that after reset, the device is put to sleep.
     //get it out of sleep mode
-    //LDByteWriteI2C(MPU6050_ADDRESS, MPU6050_RA_PWR_MGMT_1, 0x00);
+    LDByteWriteI2C(MPU6050_ADDRESS, MPU6050_RA_PWR_MGMT_1, 0x00);
     //ask the device who it is
     LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I, &Data, 1);
 
@@ -303,7 +302,7 @@ void Calibrate_Gyros()
 	GYRO_XOUT_OFFSET_1000SUM = 0;
 	GYRO_YOUT_OFFSET_1000SUM = 0;
 	GYRO_ZOUT_OFFSET_1000SUM = 0;
-	for(x = 0; x<100; x++)
+	for(x = 0; x<1000; x++)
 	{
 		LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_GYRO_XOUT_H, &GYRO_XOUT_H, 1);
 		LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_GYRO_XOUT_L, &GYRO_XOUT_L, 1);
@@ -318,9 +317,9 @@ void Calibrate_Gyros()
 
 		__delay_ms(1);
 	}
-	GYRO_XOUT_OFFSET = GYRO_XOUT_OFFSET_1000SUM/5000;
-	GYRO_YOUT_OFFSET = GYRO_YOUT_OFFSET_1000SUM/5000;
-	GYRO_ZOUT_OFFSET = GYRO_ZOUT_OFFSET_1000SUM/5000;
+	GYRO_XOUT_OFFSET = GYRO_XOUT_OFFSET_1000SUM/1000;
+	GYRO_YOUT_OFFSET = GYRO_YOUT_OFFSET_1000SUM/1000;
+	GYRO_ZOUT_OFFSET = GYRO_ZOUT_OFFSET_1000SUM/1000;
 }
 
 //Gets raw accelerometer data, performs no processing
