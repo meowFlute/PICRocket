@@ -1,3 +1,5 @@
+#define BUFFER_SIZE 4096
+
 typedef struct {
     unsigned char jmp[3];
     char oem[8];
@@ -12,8 +14,7 @@ typedef struct {
     unsigned char sectors_per_track[2];
     unsigned char number_of_heads[2];
     unsigned char hidden_sectors[4];
-    unsigned char total_sectors_long[4];
-    
+    unsigned char total_sectors_long[4];   
     unsigned char drive_number;
     unsigned char current_head;
     unsigned char boot_signature;
@@ -53,3 +54,14 @@ void fat_read_file(FILE * in, FILE * out,
                    unsigned long cluster_size, 
                    unsigned short cluster, 
                    unsigned long file_size);
+unsigned short fat_fopen_writefile(unsigned long fat_start, FILE * in, unsigned long cluster_size);
+void fat_write(FILE * in, 
+			   unsigned char buffer[BUFFER_SIZE], 
+			   unsigned short *cluster, 
+			   unsigned long *cluster_left, 
+			   unsigned short length,  
+			   unsigned long *address, 
+			   unsigned long fat_start, 
+			   unsigned long data_start, 
+               unsigned long cluster_size);
+void fat_fclose_writefile(Fat16Entry *named_entry);

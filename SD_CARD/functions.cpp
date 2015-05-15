@@ -25,10 +25,17 @@ void print_file_info(Fat16Entry *entry)
 	unsigned short modify_time = *(entry->modify_time+1) << 8 | *(entry->modify_time+0);
 	unsigned short starting_cluster = *(entry->starting_cluster+1) << 8 | *(entry->starting_cluster+0);
 	unsigned long file_size = *(entry->file_size+3) << 8*3 | *(entry->file_size+2) << 8*2 | *(entry->file_size+1) << 8 | *(entry->file_size+0);
-    printf("  Modified: %04d-%02d-%02d %02d:%02d.%02d    Start: [%04X]    Size: %d\n\n", 
+	printf("File Name : 0x%X -> %.8s\n", entry->filename, entry->filename);
+	printf("Extension : 0x%X -> %.3s\n", entry->ext, entry->ext);
+	printf("Attributes : 0x%X\n", entry->attributes, entry->attributes);
+	printf("Reserved : 0x%X\n", entry->reserved, entry->reserved);
+	printf("modify time : 0x%02X\n", modify_time, modify_time);
+	printf("modify date : 0x%04X\n", modify_date, modify_date);
+	printf("Starting Cluster : 0x%04X -> %d\n", starting_cluster, starting_cluster);
+	printf("File Size : 0x%08X -> %d\n", file_size, file_size);
+	printf("Modified: %04d-%02d-%02d %02d:%02d.%02d\n\n", 
         1980 + (modify_date >> 9), (modify_date >> 5) & 0xF, modify_date & 0x1F,
-        (modify_time >> 11), (modify_time >> 5) & 0x3F, modify_time & 0x1F,
-        starting_cluster, file_size);
+        (modify_time >> 11), (modify_time >> 5) & 0x3F, modify_time & 0x1F);
 }
 
 void print_boot_sector(Fat16BootSector bs)
@@ -111,7 +118,7 @@ void fat_read_file(FILE * in, FILE * out,
                    unsigned long cluster_size, 
                    unsigned short cluster, 
                    unsigned long file_size) {
-    unsigned char buffer[4096];
+    unsigned char buffer[BUFFER_SIZE];
     size_t bytes_read, bytes_to_read,
            file_left = file_size, cluster_left = cluster_size;
 
@@ -158,4 +165,70 @@ void fat_read_file(FILE * in, FILE * out,
             cluster_left = cluster_size; // reset cluster byte counter
         }
     }
+}
+
+unsigned short fat_fopen_writefile(unsigned long fat_start, FILE * in, unsigned long cluster_size)
+{
+	//step 1 is to find a free cluster marked with 0000 in the FAT table and store it as first cluster
+	unsigned short temp = 0xFFFF;
+	unsigned short cluster = 0x0000;
+	while( temp != 0x0000 )
+	{
+		cluster = cluster + 0x0001;
+		fseek(in, fat_start + cluster*2, SEEK_SET);
+		fread(&temp, 2, 1, in);
+	}
+	printf("first free cluster in FAT: 0x%X, cluster # %d\n", fat_start + (cluster*2), cluster);
+	return cluster;
+}
+
+void fat_write(FILE * in, 
+			   unsigned char buffer[BUFFER_SIZE], 
+			   unsigned short *cluster, 
+			   unsigned long *cluster_left, 
+			   unsigned short length,  
+			   unsigned long *address, 
+			   unsigned long fat_start, 
+			   unsigned long data_start, 
+               unsigned long cluster_size)
+{
+	size_t bytes_to_write = length;
+	//write your file until you fill the current cluster
+	fseek(in, *address, SEEK_SET);			//go to where you want to write
+	fwrite(buffer, 1, length, in);			//write what you want to write
+	*cluster_left -= length;				//number of bytes left in the current cluster
+	if (*cluster_left <= 0)
+	{
+		fseek(in, fat_start + *cluster*2, SEEK_SET);
+		printf("End of cluster reached\n\nJumping to last FAT (File Allocation Table) location at 0x%X\n", fat_start+ (*cluster) *2);
+        //fread(cluster, 2, 1, in);
+		unsigned short temp = *cluster;
+		unsigned short orig = *cluster;
+		while (temp != 0x0000)
+		{
+			fseek(in, fat_start + *cluster*2, SEEK_SET);
+			fread(&temp, 2, 1, in);
+			if (temp != 0x0000)
+			{
+				cluster = cluster + 0x0001;
+			}
+		}
+		unsigned char *clusterBYTES = (unsigned char*)*cluster;
+		unsigned char swappedClusterBytes[] = {*(clusterBYTES + 1), *(clusterBYTES + 0)};
+		//point to the next available cluster
+		fseek(in, fat_start + orig*2, SEEK_SET);
+		fwrite(swappedClusterBytes, 1, 2, in);
+        printf("Next cluster written as 0x%02X which is %d\n", cluster, cluster);
+		//this is where we now need to continue writing in the disk
+		*address = data_start + cluster_size * (*cluster-2);
+		printf("Address updated to new cluster -> 0x%X", data_start + cluster_size * (*cluster-2));
+	}
+}
+
+void fat_fclose_writefile(Fat16Entry *named_entry)
+{
+	//put an FFFF at the current cluster in the FAT table 
+
+	//write an entry in the root directory that includes the total file size and other info
+
 }

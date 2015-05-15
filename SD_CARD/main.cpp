@@ -4,8 +4,9 @@
 #include "functions.h"
 
 int main() {
-    FILE * in = fopen("test3.img", "rb");
+    FILE * in = fopen("test3.img", "r+");
 	FILE * out;
+	FILE * folderFile = fopen("SD-SPI.c", "r");
     int i;
     //PartitionTable pt[4];
     Fat16BootSector bs;
@@ -37,26 +38,37 @@ int main() {
 
 	 printf("Now at 0x%X, sector size %d, FAT size %d sectors, %d FATs\n", ftell(in), sector_size, fat_size_sectors, bs.number_of_fats);
 
-	//*************************************** Find and read the root directory *************************
 	// Calculate start offsets of FAT, root directory and data
     unsigned long fat_start = ftell(in) + (reserved_sectors-1) * sector_size;
 	unsigned long root_start = fat_start + fat_size_sectors * bs.number_of_fats * sector_size;
     unsigned long data_start = root_start + root_dir_entries * sizeof(Fat16Entry);
     printf("FAT start at 0x%X, root dir at 0x%X, data at 0x%X\n", fat_start, root_start, data_start);
-	printf("Jumping %d sectors to 0x%X which is the root directory...\n\n", (reserved_sectors-1 + fat_size_sectors * bs.number_of_fats),((reserved_sectors-1 + fat_size_sectors * bs.number_of_fats) *sector_size)+ftell(in));
+	//printf("Jumping %d sectors to 0x%X which is the root directory...\n\n", (reserved_sectors-1 + fat_size_sectors * bs.number_of_fats),((reserved_sectors-1 + fat_size_sectors * bs.number_of_fats) *sector_size)+ftell(in));
 
+	//**************experiment zone**********************
+	unsigned short cluster = fat_fopen_writefile(fat_start, in, bs.sectors_per_cluster * sector_size);
+	unsigned char buffer[BUFFER_SIZE];
+	unsigned long cluster_left = bs.sectors_per_cluster * sector_size;
+	unsigned long address = data_start + (bs.sectors_per_cluster * sector_size) * (cluster-2);
+	for(i = 0; i < 7; i++)
+	{
+		fread(buffer, 1, BUFFER_SIZE, folderFile);
+		fat_write(in, buffer, &cluster, &cluster_left, BUFFER_SIZE, &address,fat_start, data_start, bs.sectors_per_cluster * sector_size); 
+	}
+
+	//*************************************** Find and read the root directory *************************
 	fseek(in, root_start, SEEK_SET);
 	printf("*****ROOT DIRECTORY*****\n");
 	for(i=0; i<root_dir_entries; i++) 
 	{
 		fread(&entry, sizeof(entry), 1, in);
 		print_file_info(&entry);
-		if(memcmp(entry.filename, filename, 8) == 0 && memcmp(entry.ext, file_ext, 3) == 0) 
+		/*if(memcmp(entry.filename, filename, 8) == 0 && memcmp(entry.ext, file_ext, 3) == 0) 
 		{
             printf("File found!\n");
 			i = -1;
             break;
-        }
+        }*/
 	}
 	if(i == -1)
 	{
