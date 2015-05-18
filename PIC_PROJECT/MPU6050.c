@@ -541,19 +541,19 @@ void LDByteReadI2C(unsigned char ControlByte, unsigned char Address, unsigned ch
 
 void Zero_Sensors(void)
 {
-	float BUFFER_XANGLE = 0;
+	float BUFFER_ZANGLE = 0;
 	float BUFFER_YANGLE = 0;
 	int x = 0;
 	for(x=0; x<100; x++)
 	{
 		Get_Accel_Values();
 		Get_Accel_Angles();
-		BUFFER_XANGLE += ACCEL_XANGLE;
+		BUFFER_ZANGLE += ACCEL_ZANGLE;
 		BUFFER_YANGLE += ACCEL_YANGLE;
 		__delay_ms(1);
 	}
-	COMPLEMENTARY_XANGLE = BUFFER_XANGLE/100.0;
-	COMPLEMENTARY_YANGLE = BUFFER_YANGLE/100.0;
-	GYRO_XANGLE = BUFFER_XANGLE/100.0;
+
+	GYRO_ZANGLE = BUFFER_ZANGLE/100.0;
 	GYRO_YANGLE = BUFFER_YANGLE/100.0;
+        GYRO_XANGLE = 0;
 }
