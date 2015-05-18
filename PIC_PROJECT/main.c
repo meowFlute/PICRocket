@@ -22,11 +22,6 @@ volatile unsigned int* const PWMReg[] = {&OC1R, &OC2R, &OC3R, &OC4R};
 
 int main()
 {
-    ANSELA=0x0000;
-    TRISAbits.TRISA2 = 0;
-    TRISAbits.TRISA3 = 0;
-    LATAbits.LATA2 = 1;
-    LATAbits.LATA3 = 1;
     //Initialize the I2C connection
     Setup_I2C1();
 
@@ -38,7 +33,7 @@ int main()
 
     Setup_Timer1();
     Setup_PWM();
-
+    
     while(1){}
     
     return (EXIT_SUCCESS);
@@ -55,7 +50,7 @@ void Actuate_Servo(unsigned short servoNum, float angle)
             OCR = 315+(angle/180.0)*840;
             break;
         case 3:
-            OCR = 40+(angle/180.0)*117;
+            OCR = 20+(angle/180.0)*58;
     }
 
     *PWMReg[servoNum] = OCR;
@@ -89,12 +84,12 @@ void Setup_PWM()
     T3CONbits.TSIDL = 0b0; //Continue in Idle mode
     T3CONbits.TCS = 0b0; //Use internal clock
     T3CONbits.TGATE = 0b0; //Disable Gated Time Accumulation
-    T3CONbits.TCKPS = 0b11; //Use 1:64 Prescaling mode
+    T3CONbits.TCKPS = 0b10; //Use 1:64 Prescaling mode
     _T3IE = 1;
     _T3IF = 0;
     _T3IP = 5;
     PR3 = 1;
-    _PR3 = 1311; //Period Value for a 50Hz timer with 1:64 prescaling mode and 8mhz clock
+    _PR3 = 655;
     
     //Edge-Aligned PWM mode
     OC1CON1bits.OCM = 0b110;
@@ -120,7 +115,7 @@ void Setup_PWM()
     OC1R = 786;
     OC2R = 786;
     OC3R = 786;
-    OC4R = 98;
+    OC4R = 49;
 
     //Start Timers
     T2CONbits.TON = 1;
@@ -172,7 +167,7 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Accel_Angles();
 
     Actuate_Servo(2,GYRO_ZANGLE + 90);
-    Actuate_Servo(1,GYRO_XANGLE + 90);
+    Actuate_Servo(3,GYRO_XANGLE + 90);
     Actuate_Servo(0,GYRO_YANGLE + 90);
 }
 
@@ -180,14 +175,18 @@ void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
 {
     _T3IF = 0;
     _TMR3++;
-    if (_TMR3 <= OC4R)
-    {
-        _LATA1 = 1;
-    }
-    else
+
+    if (_TMR3 >= OC4R)
     {
         _LATA1 = 0;
     }
+    else
+    {
+        _LATA1 = 1;
+    }
 
-    if(_TMR3>_PR3)_TMR3 = 0;
+    if(_TMR3>=_PR3)
+    {
+        _TMR3 = 0;
+    }
 }
