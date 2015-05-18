@@ -22,7 +22,6 @@ volatile unsigned int* const PWMReg[] = {&OC1R, &OC2R, &OC3R, &OC4R};
 
 int main()
 {
-    int error = 1;
     ANSELA=0x0000;
     TRISAbits.TRISA2 = 0;
     TRISAbits.TRISA3 = 0;
@@ -47,7 +46,18 @@ int main()
 void Actuate_Servo(unsigned short servoNum, float angle)
 {
     /* Servo moves between 0 degrees and 180 degrees, 90 degrees is along rocket body */
-    unsigned int OCR = 315+(angle/180)*840;
+    unsigned int OCR;
+    switch(servoNum)
+    {
+        case 0:
+        case 1:
+        case 2:
+            OCR = 315+(angle/180.0)*840;
+            break;
+        case 3:
+            OCR = 40+(angle/180.0)*117;
+    }
+
     *PWMReg[servoNum] = OCR;
 }
 void Setup_PWM()
@@ -79,12 +89,13 @@ void Setup_PWM()
     T3CONbits.TSIDL = 0b0; //Continue in Idle mode
     T3CONbits.TCS = 0b0; //Use internal clock
     T3CONbits.TGATE = 0b0; //Disable Gated Time Accumulation
-    T3CONbits.TCKPS = 0b01; //Use 1:8 Prescaling mode
+    T3CONbits.TCKPS = 0b11; //Use 1:64 Prescaling mode
     _T3IE = 1;
     _T3IF = 0;
     _T3IP = 5;
-    PR3 = 10486;    //Period Value for a 50Hz timer with 1:8 prescaling mode and 8mhz clock
-            
+    PR3 = 1;
+    _PR3 = 1311; //Period Value for a 50Hz timer with 1:64 prescaling mode and 8mhz clock
+    
     //Edge-Aligned PWM mode
     OC1CON1bits.OCM = 0b110;
     OC2CON1bits.OCM = 0b110;
@@ -109,7 +120,7 @@ void Setup_PWM()
     OC1R = 786;
     OC2R = 786;
     OC3R = 786;
-    OC4R = 786;
+    OC4R = 98;
 
     //Start Timers
     T2CONbits.TON = 1;
@@ -117,8 +128,7 @@ void Setup_PWM()
 }
 void Setup_I2C1(void)
 {
-    //******EXAMPLE INITIALIZATION******
-        UINT config1 = 0,i=0;
+        UINT config1 = 0;
         UINT config2 = 0;
 
         //if open previously, disable the module
@@ -127,44 +137,6 @@ void Setup_I2C1(void)
         config1 = (I2C_ON | I2C_7BIT_ADD );
         config2 = 39;
         OpenI2C1(config1,config2);   //configure I2C1
-    //******EXAMPLE INITIALIZATION******
-
-        //TRISBbits.TRISB9 = 1;
-	//TRISBbits.TRISB8 = 1;
-	//This function will initialize the I2C(1) peripheral.
-
-	//Set the I2C(1) BRG Baud Rate.
-	//((8MHz)/(2*100KHz))-1 = 39 for a 100KHz I2C bus clock speed
-	//I2C1BRG = 39;
-
-        //disable interrupt I2C1 interrupts
-        //MI2C1_Clear_Intr_Status_Bit;
-        
-
-	//Now we will initialise the I2C peripheral for Master Mode, No Slew Rate
-	//Control, SMbus levels, and leave the peripheral switched off.
-	//I2C1CONbits.I2CEN = 0;          // Disable I2C Mode
-	//I2C1CONbits.I2CSIDL = 0;
-	//I2C1CONbits.SCLREL = 1;
-	//I2C1CONbits.IPMIEN = 0;
-	//I2C1CONbits.A10M = 0;
-	//I2C1CONbits.DISSLW = 1;         // Disable slew rate control
-	//I2C1CONbits.SMEN = 0;
-	//I2C1CONbits.GCEN = 0;
-	//I2C1CONbits.STREN = 0;
-	//I2C1CONbits.ACKDT = 0;
-	//I2C1CONbits.RCEN = 0;
-	//I2C1CONbits.PEN = 0;
-	//I2C1CONbits.ACKEN = 0;
-	//I2C1CONbits.RSEN = 0;
-	//I2C1CONbits.SEN = 0;
-
-	//Clearing the recieve and transmit buffers
-	//I2C1RCV = 0x0000;
-	//I2C1TRN = 0x0000;
-
-	//Now we can enable the peripheral
-	//I2C1CONbits.I2CEN = 1;
 }
 
 void Setup_Timer1()
@@ -191,7 +163,6 @@ void __attribute__((interrupt,no_auto_psv)) _MI2C1Interrupt(void)
 {
   MI2C1_Clear_Intr_Status_Bit;  //Clear Interrupt status of I2C1
 }
-unsigned int servoCount = 0;
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 {
     _T1IF = 0;  //clear interrupt flag
@@ -200,13 +171,15 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Accel_Values();
     Get_Accel_Angles();
 
-    //Actuate_Servo(0,GYRO_XANGLE + 90);
-    Actuate_Servo(0,GYRO_ZANGLE + 90);
+    Actuate_Servo(2,GYRO_ZANGLE + 90);
+    Actuate_Servo(1,GYRO_XANGLE + 90);
+    Actuate_Servo(0,GYRO_YANGLE + 90);
 }
 
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
 {
     _T3IF = 0;
+    _TMR3++;
     if (_TMR3 <= OC4R)
     {
         _LATA1 = 1;
@@ -215,4 +188,6 @@ void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
     {
         _LATA1 = 0;
     }
+
+    if(_TMR3>_PR3)_TMR3 = 0;
 }

@@ -4,8 +4,8 @@
 #include <libpic30.h>
 #include "common.h"
 #include "MPU6050.h"
-#define gyro_xsensitivity 16
-#define gyro_ysensitivity 16
+#define gyro_xsensitivity 16 //(2^16-1)/4000 = 16.38
+#define gyro_ysensitivity 16 //16 per deg/s
 #define gyro_zsensitivity 16
 
 //**************************************
@@ -315,7 +315,7 @@ void Calibrate_Gyros()
 		GYRO_YOUT_OFFSET_1000SUM += ((GYRO_YOUT_H<<8)|GYRO_YOUT_L);
 		GYRO_ZOUT_OFFSET_1000SUM += ((GYRO_ZOUT_H<<8)|GYRO_ZOUT_L);
 
-		__delay_ms(1);
+		__delay_ms(2);
 	}
 	GYRO_XOUT_OFFSET = GYRO_XOUT_OFFSET_1000SUM/1000;
 	GYRO_YOUT_OFFSET = GYRO_YOUT_OFFSET_1000SUM/1000;
