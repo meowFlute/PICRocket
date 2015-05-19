@@ -6,11 +6,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <i2c.h>
-#define DELAY 64000
 #define timerCount 164
 
 #pragma config FWDTEN = OFF   // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
 _FOSCSEL(FNOSC_FRC);          // 8MHz oscillator
+_FICD(ICS_PGx3);              // Use debugging pins 9 & 10
+ _FOSC(OSCIOFNC_OFF);         // Disable clock output on pin 8
 
 void Setup_Timer1();
 void Setup_PWM();
@@ -22,6 +23,11 @@ volatile unsigned int* const PWMReg[] = {&OC1R, &OC2R, &OC3R, &OC4R};
 
 int main()
 {
+    //Debug LED on RA3
+    _TRISA3 = 0;
+    _ANSA3 = 0;
+    _LATA3 = 1;
+
     //Initialize the I2C connection
     Setup_I2C1();
 
@@ -33,6 +39,8 @@ int main()
 
     Setup_Timer1();
     Setup_PWM();
+
+    _LATA3 = 0;
     
     while(1){}
     
@@ -161,6 +169,8 @@ void __attribute__((interrupt,no_auto_psv)) _MI2C1Interrupt(void)
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 {
     _T1IF = 0;  //clear interrupt flag
+    _T1IE = 0;
+
     LATAbits.LATA2 ^= 1;
     Get_Gyro_Rates();
     Get_Accel_Values();
@@ -169,6 +179,8 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Actuate_Servo(2,GYRO_ZANGLE + 90);
     Actuate_Servo(3,GYRO_XANGLE + 90);
     Actuate_Servo(0,GYRO_YANGLE + 90);
+
+    _T1IE = 1;
 }
 
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
