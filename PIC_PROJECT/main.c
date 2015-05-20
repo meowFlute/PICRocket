@@ -11,15 +11,39 @@
 #pragma config FWDTEN = OFF   // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
 _FOSCSEL(FNOSC_FRC);          // 8MHz oscillator
 _FICD(ICS_PGx3);              // Use debugging pins 9 & 10
- _FOSC(OSCIOFNC_OFF);         // Disable clock output on pin 8
+_FOSC(OSCIOFNC_OFF);          // Disable clock output on pin 8
 
 void Setup_Timer1();
 void Setup_PWM();
 void Setup_I2C1(void);
 void Actuate_Servo(unsigned short servoNum, float angle);
+void Update_Servos();
+void Update_PID();
+void Initialize_PID();
 
 unsigned int OC4R, _TMR3, _PR3;
 volatile unsigned int* const PWMReg[] = {&OC1R, &OC2R, &OC3R, &OC4R};
+
+float rollKD;
+float rollKP;
+float pitchKD;
+float pitchKP;
+float yawKD;
+float yawKP;
+
+float rollDesired;
+float pitchDesired;
+float yawDesired;
+
+float rollErr;
+float rollDot;
+float rollCommand;
+float pitchErr;
+float pitchDot;
+float pitchCommand;
+float yawErr;
+float yawDot;
+float yawCommand;
 
 int main()
 {
@@ -36,6 +60,7 @@ int main()
 
     Calibrate_Gyros();
     Zero_Sensors();
+    Initialize_PID();
 
     Setup_Timer1();
     Setup_PWM();
@@ -176,13 +201,60 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Accel_Values();
     Get_Accel_Angles();
 
-    Actuate_Servo(2,GYRO_ZANGLE + 90);
-    Actuate_Servo(3,GYRO_XANGLE + 90);
-    Actuate_Servo(0,GYRO_YANGLE + 90);
+//    Update_PID();
+//    Update_Servos();
 
     _T1IE = 1;
 }
+void Initialize_PID()
+{
+    rollKD = .01;
+    rollKP = .1;
+    pitchKD = .1;
+    pitchKP = .667;
+    yawKD = .1;
+    yawKP = .667;
 
+    rollDesired = 0;
+    pitchDesired = 90;
+    yawDesired = 0;
+
+    rollErr = 0;
+    rollDot = 0;
+    rollCommand = 0;
+    pitchErr = 0;
+    pitchDot = 0;
+    pitchCommand = 0;
+    yawErr = 0;
+    yawDot = 0;
+    yawCommand = 0;
+}
+void Update_PID()
+{
+    rollErr = rollDesired - GYRO_XANGLE;
+    pitchErr = pitchDesired - GYRO_ZANGLE;
+    yawErr = yawDesired - GYRO_YANGLE;
+
+    rollDot = GYRO_XRATE;
+    pitchDot = GYRO_ZRATE;
+    yawDot = GYRO_YRATE;
+
+    rollCommand = rollErr*rollKP; - rollDot*rollKD;
+    pitchCommand = pitchErr*pitchKP - pitchDot*pitchKD;
+    yawCommand = yawErr*yawKP - yawDot*yawKD;
+
+    /* Make sure the roll command doesn't
+     * overpower the pitch and yaw commands  */
+    if (rollCommand > 2) rollCommand = 2;
+    else if(rollCommand < -2) rollCommand = -2;
+}
+void Update_Servos()
+{
+    Actuate_Servo(0, pitchCommand + rollCommand);
+    Actuate_Servo(1, yawCommand + rollCommand);
+    Actuate_Servo(2, -pitchCommand + rollCommand);
+    Actuate_Servo(3, -yawCommand + rollCommand);
+}
 void __attribute__((interrupt,no_auto_psv)) _T3Interrupt()
 {
     _T3IF = 0;
