@@ -199,7 +199,6 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     LATAbits.LATA2 ^= 1;
     Get_Gyro_Rates();
     Get_Accel_Values();
-    Get_Accel_Angles();
 
 //    Update_PID();
 //    Update_Servos();
@@ -209,14 +208,14 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 void Initialize_PID()
 {
     rollKD = .01;
-    rollKP = .1;
+    rollKP = .05;
     pitchKD = .1;
     pitchKP = .667;
     yawKD = .1;
     yawKP = .667;
 
     rollDesired = 0;
-    pitchDesired = 90;
+    pitchDesired = 0;
     yawDesired = 0;
 
     rollErr = 0;

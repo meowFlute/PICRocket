@@ -543,17 +543,19 @@ void Zero_Sensors(void)
 {
 	float BUFFER_ZANGLE = 0;
 	float BUFFER_YANGLE = 0;
+        float BUFFER_XANGLE = 0;
 	int x = 0;
-	for(x=0; x<100; x++)
+	for(x=0; x<1000; x++)
 	{
 		Get_Accel_Values();
-		Get_Accel_Angles();
-		BUFFER_ZANGLE += ACCEL_ZANGLE;
-		BUFFER_YANGLE += ACCEL_YANGLE;
+		BUFFER_ZANGLE += ACCEL_ZOUT;
+		BUFFER_YANGLE += ACCEL_YOUT;
+                BUFFER_XANGLE += ACCEL_XOUT;
 		__delay_ms(1);
 	}
 
-	GYRO_ZANGLE = BUFFER_ZANGLE/100.0;
-	GYRO_YANGLE = BUFFER_YANGLE/100.0;
-        GYRO_XANGLE = 0;
+
+	GYRO_ZANGLE = 57.2958*atan(BUFFER_YANGLE/BUFFER_XANGLE);
+	GYRO_YANGLE = 0;
+        GYRO_XANGLE = 57.2958*atan(BUFFER_ZANGLE/BUFFER_YANGLE);
 }
