@@ -65,7 +65,16 @@ int main()
     Setup_Timer1();
     Setup_PWM();
 
+    //Turn off LED when PIC Initialization is complete
     _LATA3 = 0;
+
+    //Start the PID loop
+    T1CONbits.TON = 1;
+
+    Actuate_Servo(0,0);
+    Actuate_Servo(1,0);
+    Actuate_Servo(2,0);
+    Actuate_Servo(3,0);
     
     while(1){}
     
@@ -73,17 +82,22 @@ int main()
 }
 void Actuate_Servo(unsigned short servoNum, float angle)
 {
-    /* Servo moves between 0 degrees and 180 degrees, 90 degrees is along rocket body */
+    /* Servo moves between 0 degrees and 180 degrees, 0 degrees is along rocket body */
     unsigned int OCR;
     switch(servoNum)
     {
         case 0:
+            OCR = 824 + angle*4.6667;
+            break;
         case 1:
+            OCR = 735 - angle*4.6667;
+            break;
         case 2:
-            OCR = 315+(angle/180.0)*840;
+            OCR = 705 + angle*4.6667;
             break;
         case 3:
-            OCR = 20+(angle/180.0)*58;
+            OCR = 52 - angle*0.3688;
+            break;
     }
 
     *PWMReg[servoNum] = OCR;
@@ -117,12 +131,12 @@ void Setup_PWM()
     T3CONbits.TSIDL = 0b0; //Continue in Idle mode
     T3CONbits.TCS = 0b0; //Use internal clock
     T3CONbits.TGATE = 0b0; //Disable Gated Time Accumulation
-    T3CONbits.TCKPS = 0b10; //Use 1:64 Prescaling mode
+    T3CONbits.TCKPS = 0b01; //Use 1:64 Prescaling mode
     _T3IE = 1;
     _T3IF = 0;
-    _T3IP = 5;
-    PR3 = 1;
-    _PR3 = 655;
+    _T3IP = 7;
+    PR3 = 14;
+    _PR3 = 749;
     
     //Edge-Aligned PWM mode
     OC1CON1bits.OCM = 0b110;
@@ -143,12 +157,6 @@ void Setup_PWM()
     OC1CON2bits.SYNCSEL = 0b01100;
     OC2CON2bits.SYNCSEL = 0b01100;
     OC3CON2bits.SYNCSEL = 0b01100;
-
-    //Initialize Duty Cycle for 1.5 ms pulse (90 degrees)
-    OC1R = 786;
-    OC2R = 786;
-    OC3R = 786;
-    OC4R = 49;
 
     //Start Timers
     T2CONbits.TON = 1;
@@ -184,13 +192,13 @@ void Setup_Timer1()
 	PR1 = timerCount; //Period register
 
 	TMR1=0;
-	T1CONbits.TON = 1; //Enable timer
 }
 
 void __attribute__((interrupt,no_auto_psv)) _MI2C1Interrupt(void)
 {
   MI2C1_Clear_Intr_Status_Bit;  //Clear Interrupt status of I2C1
 }
+
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 {
     _T1IF = 0;  //clear interrupt flag
@@ -238,7 +246,7 @@ void Update_PID()
     pitchDot = GYRO_ZRATE;
     yawDot = GYRO_YRATE;
 
-    rollCommand = rollErr*rollKP; - rollDot*rollKD;
+    rollCommand = rollErr*rollKP - rollDot*rollKD;
     pitchCommand = pitchErr*pitchKP - pitchDot*pitchKD;
     yawCommand = yawErr*yawKP - yawDot*yawKD;
 
