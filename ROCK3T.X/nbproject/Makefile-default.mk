@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=MPU6050.c main.c
+SOURCEFILES_QUOTED_IF_SPACED=MPU6050.c main.c PWM_PID.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/MPU6050.o ${OBJECTDIR}/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/MPU6050.o.d ${OBJECTDIR}/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/MPU6050.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM_PID.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/MPU6050.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/PWM_PID.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/MPU6050.o ${OBJECTDIR}/main.o
+OBJECTFILES=${OBJECTDIR}/MPU6050.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM_PID.o
 
 # Source Files
-SOURCEFILES=MPU6050.c main.c
+SOURCEFILES=MPU6050.c main.c PWM_PID.c
 
 
 CFLAGS=
@@ -96,6 +96,13 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/PWM_PID.o: PWM_PID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/PWM_PID.o.d 
+	@${RM} ${OBJECTDIR}/PWM_PID.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PWM_PID.c  -o ${OBJECTDIR}/PWM_PID.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/PWM_PID.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/PWM_PID.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/MPU6050.o: MPU6050.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -110,6 +117,13 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/PWM_PID.o: PWM_PID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/PWM_PID.o.d 
+	@${RM} ${OBJECTDIR}/PWM_PID.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PWM_PID.c  -o ${OBJECTDIR}/PWM_PID.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/PWM_PID.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/PWM_PID.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

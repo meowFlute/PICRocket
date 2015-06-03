@@ -23,6 +23,7 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/MPU6050.o \
   build/default/production/main.o \
+  build/default/production/PWM_PID.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24FV32KA301.gld.00 \
   --stack=16 \
@@ -75,7 +76,7 @@ c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(dat
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
                               build/default/production/MPU6050.o (___delay32)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(addsf3.eo)
-                              build/default/production/main.o (___subsf3)
+                              build/default/production/PWM_PID.o (___subsf3)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(atanf.eo)
                               build/default/production/MPU6050.o (_atanf)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsf3.eo)
@@ -85,11 +86,11 @@ c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsi3.
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
                               c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(atanf.eo) (_errno)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(feqltle.eo)
-                              build/default/production/main.o (___ltsf2)
+                              build/default/production/PWM_PID.o (___ltsf2)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fgtge.eo)
-                              build/default/production/main.o (___gtsf2)
+                              build/default/production/PWM_PID.o (___gtsf2)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
-                              build/default/production/main.o (___fixunssfsi)
+                              build/default/production/PWM_PID.o (___fixunssfsi)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
                               build/default/production/MPU6050.o (___floatsisf)
 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fpack.eo)
@@ -119,12 +120,11 @@ Program Memory  [Origin = 0x200, Length = 0x5600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x6dc           0xa4a  (2634)
-.const                       0x8dc                 0x8             0xc  (12)
-.text                        0x8e4               0xfba          0x1797  (6039)
-.dinit                      0x189e                0x2e            0x45  (69)
-.init.delay32               0x18cc                0x1c            0x2a  (42)
+.text                        0x8dc               0xfde          0x17cd  (6093)
+.dinit                      0x18ba                0x34            0x4e  (78)
+.init.delay32               0x18ee                0x1c            0x2a  (42)
 
-                     Total program memory used (bytes):         0x225c  (8796) 26%
+                     Total program memory used (bytes):         0x228f  (8847) 26%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
@@ -132,10 +132,10 @@ Data Memory  [Origin = 0x800, Length = 0x800]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0            0xfa  (250)
-.ndata                       0x8fa                   0            0x26  (38)
-.nbss                        0x920                   0             0x2  (2)
+.ndata                       0x8fa                   0            0x2e  (46)
+.nbss                        0x928                   0             0x2  (2)
 
-                        Total data memory used (bytes):          0x122  (290) 14%
+                        Total data memory used (bytes):          0x12a  (298) 14%
 
 
 Dynamic Memory Usage
@@ -143,9 +143,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x922                               0x6de  (1758)
+stack                        0x92a                               0x6d6  (1750)
 
-                        Maximum dynamic memory (bytes):          0x6de  (1758)
+                        Maximum dynamic memory (bytes):          0x6d6  (1750)
 
 
 External Symbols in Data Memory (by address):
@@ -200,27 +200,27 @@ External Symbols in Data Memory (by address):
                     0x08a6                  _yaw_input
                     0x08a8                  _pitch_input
                     0x08aa                  _roll_input
-                    0x08ac                  _OC4R
-                    0x08ae                  __TMR3
-                    0x08b0                  __PR3
-                    0x08b2                  _rollKD
-                    0x08b6                  _rollKP
-                    0x08ba                  _pitchKD
-                    0x08be                  _pitchKP
-                    0x08c2                  _yawKD
-                    0x08c6                  _yawKP
-                    0x08ca                  _rollDesired
-                    0x08ce                  _pitchDesired
-                    0x08d2                  _yawDesired
-                    0x08d6                  _rollErr
-                    0x08da                  _rollDot
-                    0x08de                  _rollCommand
-                    0x08e2                  _pitchErr
-                    0x08e6                  _pitchDot
-                    0x08ea                  _pitchCommand
-                    0x08ee                  _yawErr
-                    0x08f2                  _yawDot
-                    0x08f6                  _yawCommand
+                    0x08ac                  _rollKD
+                    0x08b0                  _rollKP
+                    0x08b4                  _pitchKD
+                    0x08b8                  _pitchKP
+                    0x08bc                  _yawKD
+                    0x08c0                  _yawKP
+                    0x08c4                  _rollDesired
+                    0x08c8                  _pitchDesired
+                    0x08cc                  _yawDesired
+                    0x08d0                  _rollErr
+                    0x08d4                  _rollDot
+                    0x08d8                  _rollCommand
+                    0x08dc                  _pitchErr
+                    0x08e0                  _pitchDot
+                    0x08e4                  _pitchCommand
+                    0x08e8                  _yawErr
+                    0x08ec                  _yawDot
+                    0x08f0                  _yawCommand
+                    0x08f4                  _OC4R
+                    0x08f6                  __TMR3
+                    0x08f8                  __PR3
                     0x08fa                  _GYRO_XOUT_L
                     0x08fb                  _GYRO_XOUT_H
                     0x08fc                  _GYRO_YOUT_L
@@ -241,6 +241,7 @@ External Symbols in Data Memory (by address):
                     0x0914                  _KD
                     0x0918                  _ZKP
                     0x091c                  _ZKD
+                    0x0920                  _PWMReg
 
 External Symbols in Data Memory (by name):
 
@@ -294,11 +295,12 @@ External Symbols in Data Memory (by name):
                     0x088a                  _OC1_output
                     0x088e                  _OC2_output
                     0x0892                  _OC3_output
-                    0x08ac                  _OC4R
+                    0x08f4                  _OC4R
                     0x0896                  _OC4_output
                     0x086e                  _PID_XOUTPUT
                     0x0872                  _PID_YOUTPUT
                     0x0876                  _PID_ZOUTPUT
+                    0x0920                  _PWMReg
                     0x0862                  _TARGET_XANGLE
                     0x0866                  _TARGET_YANGLE
                     0x086a                  _TARGET_ZRATE
@@ -309,39 +311,39 @@ External Symbols in Data Memory (by name):
                     0x0882                  _ZERROR
                     0x091c                  _ZKD
                     0x0918                  _ZKP
-                    0x08b0                  __PR3
-                    0x08ae                  __TMR3
+                    0x08f8                  __PR3
+                    0x08f6                  __TMR3
                     0x089a                  _count
-                    0x08ea                  _pitchCommand
-                    0x08ce                  _pitchDesired
-                    0x08e6                  _pitchDot
-                    0x08e2                  _pitchErr
-                    0x08ba                  _pitchKD
-                    0x08be                  _pitchKP
+                    0x08e4                  _pitchCommand
+                    0x08c8                  _pitchDesired
+                    0x08e0                  _pitchDot
+                    0x08dc                  _pitchErr
+                    0x08b4                  _pitchKD
+                    0x08b8                  _pitchKP
                     0x08a8                  _pitch_input
-                    0x08de                  _rollCommand
-                    0x08ca                  _rollDesired
-                    0x08da                  _rollDot
-                    0x08d6                  _rollErr
-                    0x08b2                  _rollKD
-                    0x08b6                  _rollKP
+                    0x08d8                  _rollCommand
+                    0x08c4                  _rollDesired
+                    0x08d4                  _rollDot
+                    0x08d0                  _rollErr
+                    0x08ac                  _rollKD
+                    0x08b0                  _rollKP
                     0x08aa                  _roll_input
                     0x0886                  _throttle
                     0x08a4                  _throttle_input
-                    0x08f6                  _yawCommand
-                    0x08d2                  _yawDesired
-                    0x08f2                  _yawDot
-                    0x08ee                  _yawErr
-                    0x08c2                  _yawKD
-                    0x08c6                  _yawKP
+                    0x08f0                  _yawCommand
+                    0x08cc                  _yawDesired
+                    0x08ec                  _yawDot
+                    0x08e8                  _yawErr
+                    0x08bc                  _yawKD
+                    0x08c0                  _yawKP
                     0x08a6                  _yaw_input
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00022c                  __psv_init
-                  0x00023c                  __data_init_standard
                   0x00023c                  __data_init
+                  0x00023c                  __data_init_standard
                   0x00029a                  __DefaultInterrupt
                   0x00029e                  _CloseI2C1
                   0x0002ae                  _ConfigIntI2C1
@@ -359,9 +361,9 @@ External Symbols in Program Memory (by address):
                   0x0004e0                  _atanf
                   0x0005aa                  ___divsf3
                   0x00062e                  ___divsi3
+                  0x00064c                  ___eqsf2
                   0x00064c                  ___ltsf2
                   0x00064c                  ___lesf2
-                  0x00064c                  ___eqsf2
                   0x000650                  ___gesf2
                   0x000650                  ___gtsf2
                   0x000654                  ___fixunssfsi
@@ -378,69 +380,67 @@ External Symbols in Program Memory (by address):
                   0x000828                  __fcompare
                   0x00085e                  ___floatdisf
                   0x00087e                  ___floatundisf
-                  0x0008dc                  _PWMReg
-                  0x0008e4                  _Setup_MPU6050
-                  0x000a76                  _MPU6050_Test_I2C
-                  0x000a9a                  _MPU6050_Check_Registers
-                  0x000e56                  _Calibrate_Gyros
-                  0x000f54                  _Get_Accel_Values
-                  0x000fcc                  _Get_Accel_Angles
-                  0x0010e8                  _Get_Gyro_Rates
-                  0x001214                  _ACKStatus
-                  0x001224                  _LDByteWriteI2C
-                  0x0012c2                  _LDByteReadI2C
-                  0x001382                  _Zero_Sensors
-                  0x001440                  _main
-                  0x001474                  _Actuate_Servo
-                  0x001524                  _Setup_PWM
-                  0x0015d4                  _Setup_I2C1
-                  0x0015f6                  _Setup_Timer1
-                  0x001622                  __MI2C1Interrupt
-                  0x00162a                  __T1Interrupt
-                  0x001668                  _Initialize_PID
-                  0x0016e6                  _Update_PID
-                  0x001814                  _Update_Servos
-                  0x001872                  __T3Interrupt
-                  0x0018cc                  ___delay32
+                  0x0008dc                  _Setup_MPU6050
+                  0x000a6e                  _MPU6050_Test_I2C
+                  0x000a92                  _MPU6050_Check_Registers
+                  0x000e4e                  _Calibrate_Gyros
+                  0x000f4c                  _Get_Accel_Values
+                  0x000fc4                  _Get_Accel_Angles
+                  0x0010e0                  _Get_Gyro_Rates
+                  0x00120c                  _ACKStatus
+                  0x00121c                  _LDByteWriteI2C
+                  0x0012ba                  _LDByteReadI2C
+                  0x00137a                  _Zero_Sensors
+                  0x001438                  _Actuate_Servo
+                  0x0014e8                  _Setup_PWM
+                  0x001598                  _Initialize_PID
+                  0x001616                  _Update_PID
+                  0x001744                  _Update_Servos
+                  0x0017a2                  _main
+                  0x0017f6                  _Setup_I2C1
+                  0x001818                  _Setup_Timer1
+                  0x001844                  __MI2C1Interrupt
+                  0x00184c                  __T1Interrupt
+                  0x00188e                  __T3Interrupt
+                  0x0018ee                  ___delay32
 
 External Symbols in Program Memory (by name):
 
-                  0x001214                  _ACKStatus
-                  0x001474                  _Actuate_Servo
-                  0x000e56                  _Calibrate_Gyros
+                  0x00120c                  _ACKStatus
+                  0x001438                  _Actuate_Servo
+                  0x000e4e                  _Calibrate_Gyros
                   0x00029e                  _CloseI2C1
                   0x0002ae                  _ConfigIntI2C1
                   0x000416                  _DataRdyI2C1
-                  0x000fcc                  _Get_Accel_Angles
-                  0x000f54                  _Get_Accel_Values
-                  0x0010e8                  _Get_Gyro_Rates
+                  0x000fc4                  _Get_Accel_Angles
+                  0x000f4c                  _Get_Accel_Values
+                  0x0010e0                  _Get_Gyro_Rates
                   0x00031e                  _IdleI2C1
-                  0x001668                  _Initialize_PID
-                  0x0012c2                  _LDByteReadI2C
-                  0x001224                  _LDByteWriteI2C
-                  0x000a9a                  _MPU6050_Check_Registers
-                  0x000a76                  _MPU6050_Test_I2C
+                  0x001598                  _Initialize_PID
+                  0x0012ba                  _LDByteReadI2C
+                  0x00121c                  _LDByteWriteI2C
+                  0x000a92                  _MPU6050_Check_Registers
+                  0x000a6e                  _MPU6050_Test_I2C
                   0x0003c2                  _MasterWriteI2C1
                   0x000358                  _MastergetsI2C1
                   0x0003e2                  _NotAckI2C1
                   0x0003ec                  _OpenI2C1
-                  0x0008dc                  _PWMReg
                   0x0003fe                  _RestartI2C1
-                  0x0015d4                  _Setup_I2C1
-                  0x0008e4                  _Setup_MPU6050
-                  0x001524                  _Setup_PWM
-                  0x0015f6                  _Setup_Timer1
+                  0x0017f6                  _Setup_I2C1
+                  0x0008dc                  _Setup_MPU6050
+                  0x0014e8                  _Setup_PWM
+                  0x001818                  _Setup_Timer1
                   0x000406                  _StartI2C1
                   0x00040e                  _StopI2C1
-                  0x0016e6                  _Update_PID
-                  0x001814                  _Update_Servos
-                  0x001382                  _Zero_Sensors
+                  0x001616                  _Update_PID
+                  0x001744                  _Update_Servos
+                  0x00137a                  _Zero_Sensors
                   0x00029a                  __DefaultInterrupt
-                  0x001622                  __MI2C1Interrupt
-                  0x00162a                  __T1Interrupt
-                  0x001872                  __T3Interrupt
+                  0x001844                  __MI2C1Interrupt
+                  0x00184c                  __T1Interrupt
+                  0x00188e                  __T3Interrupt
                   0x000426                  ___addsf3
-                  0x0018cc                  ___delay32
+                  0x0018ee                  ___delay32
                   0x0005aa                  ___divsf3
                   0x00062e                  ___divsi3
                   0x00064c                  ___eqsf2
@@ -467,7 +467,7 @@ External Symbols in Program Memory (by name):
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
                   0x0004e0                  _atanf
-                  0x001440                  _main
+                  0x0017a2                  _main
                   0x00079e                  _sqrtf
 
 Memory Configuration
@@ -494,6 +494,7 @@ Linker script and memory map
 
 LOAD build/default/production/MPU6050.o
 LOAD build/default/production/main.o
+LOAD build/default/production/PWM_PID.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libfx-elf.a
@@ -646,31 +647,36 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x349e
+.debug_info       0x000000       0x3b62
  *(.debug_info)
  .debug_info      0x000000        0xc9b build/default/production/MPU6050.o
- .debug_info      0x000c9b       0x2803 build/default/production/main.o
+ .debug_info      0x000c9b       0x1598 build/default/production/main.o
+ .debug_info      0x002233       0x192f build/default/production/PWM_PID.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x35c
+.debug_abbrev     0x000000        0x459
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x177 build/default/production/MPU6050.o
- .debug_abbrev    0x000177        0x1e5 build/default/production/main.o
+ .debug_abbrev    0x000177        0x185 build/default/production/main.o
+ .debug_abbrev    0x0002fc        0x15d build/default/production/PWM_PID.o
 
-.debug_line       0x000000       0x104e
+.debug_line       0x000000       0x110f
  *(.debug_line)
  .debug_line      0x000000        0xa28 build/default/production/MPU6050.o
- .debug_line      0x000a28        0x626 build/default/production/main.o
+ .debug_line      0x000a28        0x353 build/default/production/main.o
+ .debug_line      0x000d7b        0x394 build/default/production/PWM_PID.o
 
-.debug_frame      0x000000        0x188
+.debug_frame      0x000000        0x19c
  *(.debug_frame)
  .debug_frame     0x000000         0xc4 build/default/production/MPU6050.o
- .debug_frame     0x0000c4         0xc4 build/default/production/main.o
+ .debug_frame     0x0000c4         0x74 build/default/production/main.o
+ .debug_frame     0x000138         0x64 build/default/production/PWM_PID.o
 
-.debug_str        0x000000        0x426
+.debug_str        0x000000        0x43d
  *(.debug_str)
  .debug_str       0x000000        0x1fa build/default/production/MPU6050.o
- .debug_str       0x0001fa        0x22c build/default/production/main.o
+ .debug_str       0x0001fa         0x4a build/default/production/main.o
+ .debug_str       0x000244        0x1f9 build/default/production/PWM_PID.o
 
 .debug_loc
  *(.debug_loc)
@@ -679,22 +685,26 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x755
+                  0x000000        0x767
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0xea build/default/production/MPU6050.o
  .debug_pubnames
-                  0x0000ea        0x66b build/default/production/main.o
+                  0x0000ea        0x617 build/default/production/main.o
+ .debug_pubnames
+                  0x000701         0x66 build/default/production/PWM_PID.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x30
+.debug_aranges    0x000000         0x48
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/MPU6050.o
  .debug_aranges
                   0x000018         0x18 build/default/production/main.o
+ .debug_aranges
+                  0x000030         0x18 build/default/production/PWM_PID.o
 
 .ivt              0x000004         0xfc
                   0x000004          0x4 LONG 0x29a DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
@@ -708,12 +718,12 @@ __FDS
                   0x000014          0x4 LONG 0x29a DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x29a DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x29a DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x162a DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x184c DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x29a DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000022          0x4 LONG 0x29a DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000024          0x4 LONG 0x1872 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000024          0x4 LONG 0x188e DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002a          0x4 LONG 0x29a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -722,7 +732,7 @@ __FDS
                   0x000030          0x4 LONG 0x29a DEFINED (__Interrupt14)?ABSOLUTE (__Interrupt14):ABSOLUTE (__DefaultInterrupt)
                   0x000032          0x4 LONG 0x29a DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000034          0x4 LONG 0x29a DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000036          0x4 LONG 0x1622 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000036          0x4 LONG 0x1844 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000038          0x4 LONG 0x29a DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003a          0x4 LONG 0x29a DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003c          0x4 LONG 0x29a DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -836,12 +846,12 @@ __FDS
                   0x000114          0x4 LONG 0x29a DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x29a DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x29a DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x162a DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x184c DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x29a DEFINED (__AltInterrupt4)?ABSOLUTE (__AltInterrupt4):DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000122          0x4 LONG 0x29a DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000124          0x4 LONG 0x1872 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000124          0x4 LONG 0x188e DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012a          0x4 LONG 0x29a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -850,7 +860,7 @@ __FDS
                   0x000130          0x4 LONG 0x29a DEFINED (__AltInterrupt14)?ABSOLUTE (__AltInterrupt14):DEFINED (__Interrupt14)?ABSOLUTE (__Interrupt14):ABSOLUTE (__DefaultInterrupt)
                   0x000132          0x4 LONG 0x29a DEFINED (__AltNVMInterrupt)?ABSOLUTE (__AltNVMInterrupt):DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000134          0x4 LONG 0x29a DEFINED (__AltSI2C1Interrupt)?ABSOLUTE (__AltSI2C1Interrupt):DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000136          0x4 LONG 0x1622 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000136          0x4 LONG 0x1844 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000138          0x4 LONG 0x29a DEFINED (__AltCompInterrupt)?ABSOLUTE (__AltCompInterrupt):DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013a          0x4 LONG 0x29a DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013c          0x4 LONG 0x29a DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1570,84 +1580,88 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000030        0x316
+                  0x000048        0x39e
  .debug_pubtypes
-                  0x000030         0xa6 build/default/production/MPU6050.o
+                  0x000048         0xa6 build/default/production/MPU6050.o
  .debug_pubtypes
-                  0x0000d6        0x270 build/default/production/main.o
+                  0x0000ee        0x107 build/default/production/main.o
+ .debug_pubtypes
+                  0x0001f5        0x1f1 build/default/production/PWM_PID.o
 
 __c30_signature
-                  0x000346         0xd2
+                  0x0003e6         0xd8
  __c30_signature
-                  0x000346          0x6 build/default/production/MPU6050.o
+                  0x0003e6          0x6 build/default/production/MPU6050.o
  __c30_signature
-                  0x00034c          0x6 build/default/production/main.o
+                  0x0003ec          0x6 build/default/production/main.o
  __c30_signature
-                  0x000352          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(CloseI2C1.o)
+                  0x0003f2          0x6 build/default/production/PWM_PID.o
  __c30_signature
-                  0x000358          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(ConfigIntI2C1.o)
+                  0x0003f8          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(CloseI2C1.o)
  __c30_signature
-                  0x00035e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(IdleI2C1.o)
+                  0x0003fe          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(ConfigIntI2C1.o)
  __c30_signature
-                  0x000364          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(MastergetsI2C1.o)
+                  0x000404          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(IdleI2C1.o)
  __c30_signature
-                  0x00036a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(MasterWriteI2C1.o)
+                  0x00040a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(MastergetsI2C1.o)
  __c30_signature
-                  0x000370          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(NotAckI2C1.o)
+                  0x000410          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(MasterWriteI2C1.o)
  __c30_signature
-                  0x000376          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(OpenI2C1.o)
+                  0x000416          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(NotAckI2C1.o)
  __c30_signature
-                  0x00037c          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(RestartI2C1.o)
+                  0x00041c          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(OpenI2C1.o)
  __c30_signature
-                  0x000382          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(StartI2C1.o)
+                  0x000422          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(RestartI2C1.o)
  __c30_signature
-                  0x000388          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(StopI2C1.o)
+                  0x000428          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(StartI2C1.o)
  __c30_signature
-                  0x00038e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(DataRdyI2C1.o)
+                  0x00042e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(StopI2C1.o)
  __c30_signature
-                  0x000394          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000434          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a(DataRdyI2C1.o)
  __c30_signature
-                  0x00039a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00043a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0003a0          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x000440          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0003a6          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000446          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
  __c30_signature
-                  0x0003ac          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(atanf.eo)
+                  0x00044c          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x0003b2          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsf3.eo)
+                  0x000452          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(atanf.eo)
  __c30_signature
-                  0x0003b8          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsi3.eo)
+                  0x000458          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x0003be          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
+                  0x00045e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(divsi3.eo)
  __c30_signature
-                  0x0003c4          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(feqltle.eo)
+                  0x000464          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
  __c30_signature
-                  0x0003ca          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fgtge.eo)
+                  0x00046a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(feqltle.eo)
  __c30_signature
-                  0x0003d0          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x000470          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fgtge.eo)
  __c30_signature
-                  0x0003d6          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
+                  0x000476          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x0003dc          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x00047c          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
  __c30_signature
-                  0x0003e2          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000482          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x0003e8          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x000488          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x0003ee          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x00048e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x0003f4          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x000494          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x0003fa          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(sqrtf.eo)
+                  0x00049a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x000400          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(udivsi3.eo)
+                  0x0004a0          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(sqrtf.eo)
  __c30_signature
-                  0x000406          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fcompare.eo)
+                  0x0004a6          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(udivsi3.eo)
  __c30_signature
-                  0x00040c          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+                  0x0004ac          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(fcompare.eo)
  __c30_signature
-                  0x000412          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x0004b2          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+ __c30_signature
+                  0x0004b8          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .nbss               0x0800         0xfa
  .nbss              0x0800         0xfa build/default/production/main.o
@@ -1701,30 +1715,30 @@ __c30_signature
                     0x08a6                  _yaw_input
                     0x08a8                  _pitch_input
                     0x08aa                  _roll_input
-                    0x08ac                  _OC4R
-                    0x08ae                  __TMR3
-                    0x08b0                  __PR3
-                    0x08b2                  _rollKD
-                    0x08b6                  _rollKP
-                    0x08ba                  _pitchKD
-                    0x08be                  _pitchKP
-                    0x08c2                  _yawKD
-                    0x08c6                  _yawKP
-                    0x08ca                  _rollDesired
-                    0x08ce                  _pitchDesired
-                    0x08d2                  _yawDesired
-                    0x08d6                  _rollErr
-                    0x08da                  _rollDot
-                    0x08de                  _rollCommand
-                    0x08e2                  _pitchErr
-                    0x08e6                  _pitchDot
-                    0x08ea                  _pitchCommand
-                    0x08ee                  _yawErr
-                    0x08f2                  _yawDot
-                    0x08f6                  _yawCommand
+                    0x08ac                  _rollKD
+                    0x08b0                  _rollKP
+                    0x08b4                  _pitchKD
+                    0x08b8                  _pitchKP
+                    0x08bc                  _yawKD
+                    0x08c0                  _yawKP
+                    0x08c4                  _rollDesired
+                    0x08c8                  _pitchDesired
+                    0x08cc                  _yawDesired
+                    0x08d0                  _rollErr
+                    0x08d4                  _rollDot
+                    0x08d8                  _rollCommand
+                    0x08dc                  _pitchErr
+                    0x08e0                  _pitchDot
+                    0x08e4                  _pitchCommand
+                    0x08e8                  _yawErr
+                    0x08ec                  _yawDot
+                    0x08f0                  _yawCommand
+                    0x08f4                  _OC4R
+                    0x08f6                  __TMR3
+                    0x08f8                  __PR3
 
-.ndata              0x08fa         0x26
- .ndata             0x08fa         0x26 build/default/production/main.o
+.ndata              0x08fa         0x2e
+ .ndata             0x08fa         0x2e build/default/production/main.o
                     0x08fa                  _GYRO_XOUT_L
                     0x08fb                  _GYRO_XOUT_H
                     0x08fc                  _GYRO_YOUT_L
@@ -1745,48 +1759,46 @@ __c30_signature
                     0x0914                  _KD
                     0x0918                  _ZKP
                     0x091c                  _ZKD
+                    0x0920                  _PWMReg
 
-.nbss               0x0920          0x2
- .nbss              0x0920          0x2 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
-                    0x0920                  _errno
+.nbss               0x0928          0x2
+ .nbss              0x0928          0x2 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
+                    0x0928                  _errno
 
 .config_WINDIS    0xf8000a          0x2
  .config_WINDIS
                   0xf8000a          0x2 build/default/production/main.o
 
-.const              0x88dc          0x8 load address 0x0008dc  
- .const             0x88dc          0x8 build/default/production/main.o
-                    0x88dc                  _PWMReg
+.text             0x0008dc        0xfde
+ .text            0x0008dc        0xb5c build/default/production/MPU6050.o
+                  0x0008dc                  _Setup_MPU6050
+                  0x000a6e                  _MPU6050_Test_I2C
+                  0x000a92                  _MPU6050_Check_Registers
+                  0x000e4e                  _Calibrate_Gyros
+                  0x000f4c                  _Get_Accel_Values
+                  0x000fc4                  _Get_Accel_Angles
+                  0x0010e0                  _Get_Gyro_Rates
+                  0x00120c                  _ACKStatus
+                  0x00121c                  _LDByteWriteI2C
+                  0x0012ba                  _LDByteReadI2C
+                  0x00137a                  _Zero_Sensors
+ .text            0x001438        0x36a build/default/production/PWM_PID.o
+                  0x001438                  _Actuate_Servo
+                  0x0014e8                  _Setup_PWM
+                  0x001598                  _Initialize_PID
+                  0x001616                  _Update_PID
+                  0x001744                  _Update_Servos
+ .text            0x0017a2        0x118 build/default/production/main.o
+                  0x0017a2                  _main
+                  0x0017f6                  _Setup_I2C1
+                  0x001818                  _Setup_Timer1
+                  0x001844                  __MI2C1Interrupt
+                  0x00184c                  __T1Interrupt
+                  0x00188e                  __T3Interrupt
 
-.text             0x0008e4        0xfba
- .text            0x0008e4        0xb5c build/default/production/MPU6050.o
-                  0x0008e4                  _Setup_MPU6050
-                  0x000a76                  _MPU6050_Test_I2C
-                  0x000a9a                  _MPU6050_Check_Registers
-                  0x000e56                  _Calibrate_Gyros
-                  0x000f54                  _Get_Accel_Values
-                  0x000fcc                  _Get_Accel_Angles
-                  0x0010e8                  _Get_Gyro_Rates
-                  0x001214                  _ACKStatus
-                  0x001224                  _LDByteWriteI2C
-                  0x0012c2                  _LDByteReadI2C
-                  0x001382                  _Zero_Sensors
- .text            0x001440        0x45e build/default/production/main.o
-                  0x001440                  _main
-                  0x001474                  _Actuate_Servo
-                  0x001524                  _Setup_PWM
-                  0x0015d4                  _Setup_I2C1
-                  0x0015f6                  _Setup_Timer1
-                  0x001622                  __MI2C1Interrupt
-                  0x00162a                  __T1Interrupt
-                  0x001668                  _Initialize_PID
-                  0x0016e6                  _Update_PID
-                  0x001814                  _Update_Servos
-                  0x001872                  __T3Interrupt
+.dinit            0x0018ba         0x34
+ .dinit           0x0018ba         0x34 data_init
 
-.dinit            0x00189e         0x2e
- .dinit           0x00189e         0x2e data_init
-
-.init.delay32     0x0018cc         0x1c
- .init.delay32    0x0018cc         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x0018cc                  ___delay32
+.init.delay32     0x0018ee         0x1c
+ .init.delay32    0x0018ee         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x0018ee                  ___delay32

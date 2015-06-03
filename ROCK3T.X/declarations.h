@@ -100,6 +100,29 @@ int yaw_input = 0;
 int pitch_input = 0;
 int roll_input = 0;
 
+float rollKD;
+float rollKP;
+float pitchKD;
+float pitchKP;
+float yawKD;
+float yawKP;
+
+float rollDesired;
+float pitchDesired;
+float yawDesired;
+
+float rollErr;
+float rollDot;
+float rollCommand;
+float pitchErr;
+float pitchDot;
+float pitchCommand;
+float yawErr;
+float yawDot;
+float yawCommand;
+
+unsigned int OC4R, _TMR3, _PR3;
+
 #ifdef	__cplusplus
 }
 #endif

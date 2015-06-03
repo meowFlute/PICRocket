@@ -8,10 +8,35 @@
 #ifndef COMMON_H
 #define	COMMON_H
 #define dt 0.01
+#include <p24fv32ka301.h>
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+extern unsigned int OC4R, _TMR3, _PR3;
+extern volatile unsigned int* PWMReg[]; 
+    
+extern float rollKD;
+extern float rollKP;
+extern float pitchKD;
+extern float pitchKP;
+extern float yawKD;
+extern float yawKP;
+
+extern float rollDesired;
+extern float pitchDesired;
+extern float yawDesired;
+
+extern float rollErr;
+extern float rollDot;
+extern float rollCommand;
+extern float pitchErr;
+extern float pitchDot;
+extern float pitchCommand;
+extern float yawErr;
+extern float yawDot;
+extern float yawCommand;
 
 extern signed int ACCEL_XOUT;
 extern signed int ACCEL_YOUT;
