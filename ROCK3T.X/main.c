@@ -31,14 +31,17 @@ void Setup_I2C1(void);
 
 int main()
 {
+    
+    Setup_PWM();
+
     //Debug LED on RA3
     _TRISA3 = 0;
     _ANSA3 = 0;
     _LATA3 = 1;
-    Actuate_Servo(0,75);
-    Actuate_Servo(1,75);
-    Actuate_Servo(2,75);
-    Actuate_Servo(3,75);
+    Actuate_Servo(0,-55);
+    Actuate_Servo(1,55);
+    Actuate_Servo(2,55);
+    Actuate_Servo(3,-55);
     
     //Initialize the I2C connection
     Setup_I2C1();
@@ -49,10 +52,8 @@ int main()
     Calibrate_Gyros();
     Zero_Sensors();
     Initialize_PID();
-
     Setup_Timer1();
-    Setup_PWM();
-
+    
     //Turn off LED when PIC Initialization is complete
     _LATA3 = 0;
 
@@ -115,8 +116,8 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
     Get_Gyro_Rates();
     Get_Accel_Values();
 
-    Update_PID();
-    Update_Servos();
+//    Update_PID();
+//    Update_Servos();
 
     _T1IE = 1;
 }
