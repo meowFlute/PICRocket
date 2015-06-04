@@ -120,11 +120,11 @@ Program Memory  [Origin = 0x200, Length = 0x5600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x6dc           0xa4a  (2634)
-.text                        0x8dc               0xfda          0x17c7  (6087)
-.dinit                      0x18b6                0x34            0x4e  (78)
-.init.delay32               0x18ea                0x1c            0x2a  (42)
+.text                        0x8dc               0xfde          0x17cd  (6093)
+.dinit                      0x18ba                0x34            0x4e  (78)
+.init.delay32               0x18ee                0x1c            0x2a  (42)
 
-                     Total program memory used (bytes):         0x2289  (8841) 26%
+                     Total program memory used (bytes):         0x228f  (8847) 26%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
@@ -401,8 +401,8 @@ External Symbols in Program Memory (by address):
                   0x001818                  _Setup_Timer1
                   0x001844                  __MI2C1Interrupt
                   0x00184c                  __T1Interrupt
-                  0x00188a                  __T3Interrupt
-                  0x0018ea                  ___delay32
+                  0x00188e                  __T3Interrupt
+                  0x0018ee                  ___delay32
 
 External Symbols in Program Memory (by name):
 
@@ -438,9 +438,9 @@ External Symbols in Program Memory (by name):
                   0x00029a                  __DefaultInterrupt
                   0x001844                  __MI2C1Interrupt
                   0x00184c                  __T1Interrupt
-                  0x00188a                  __T3Interrupt
+                  0x00188e                  __T3Interrupt
                   0x000426                  ___addsf3
-                  0x0018ea                  ___delay32
+                  0x0018ee                  ___delay32
                   0x0005aa                  ___divsf3
                   0x00062e                  ___divsi3
                   0x00064c                  ___eqsf2
@@ -661,11 +661,11 @@ __FDS
  .debug_abbrev    0x000177        0x185 build/default/production/main.o
  .debug_abbrev    0x0002fc        0x15d build/default/production/PWM_PID.o
 
-.debug_line       0x000000       0x10ff
+.debug_line       0x000000       0x110f
  *(.debug_line)
  .debug_line      0x000000        0xa28 build/default/production/MPU6050.o
- .debug_line      0x000a28        0x343 build/default/production/main.o
- .debug_line      0x000d6b        0x394 build/default/production/PWM_PID.o
+ .debug_line      0x000a28        0x353 build/default/production/main.o
+ .debug_line      0x000d7b        0x394 build/default/production/PWM_PID.o
 
 .debug_frame      0x000000        0x19c
  *(.debug_frame)
@@ -724,7 +724,7 @@ __FDS
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000022          0x4 LONG 0x29a DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000024          0x4 LONG 0x188a DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000024          0x4 LONG 0x188e DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002a          0x4 LONG 0x29a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -852,7 +852,7 @@ __FDS
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000122          0x4 LONG 0x29a DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000124          0x4 LONG 0x188a DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000124          0x4 LONG 0x188e DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012a          0x4 LONG 0x29a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1766,7 +1766,7 @@ __c30_signature
  .nbss              0x0928          0x2 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
                     0x0928                  _errno
 
-.text             0x0008dc        0xfda
+.text             0x0008dc        0xfde
  .text            0x0008dc        0xb5c build/default/production/MPU6050.o
                   0x0008dc                  _Setup_MPU6050
                   0x000a6e                  _MPU6050_Test_I2C
@@ -1785,17 +1785,17 @@ __c30_signature
                   0x001598                  _Initialize_PID
                   0x001616                  _Update_PID
                   0x001744                  _Update_Servos
- .text            0x0017a2        0x114 build/default/production/main.o
+ .text            0x0017a2        0x118 build/default/production/main.o
                   0x0017a2                  _main
                   0x0017f6                  _Setup_I2C1
                   0x001818                  _Setup_Timer1
                   0x001844                  __MI2C1Interrupt
                   0x00184c                  __T1Interrupt
-                  0x00188a                  __T3Interrupt
+                  0x00188e                  __T3Interrupt
 
-.dinit            0x0018b6         0x34
- .dinit           0x0018b6         0x34 data_init
+.dinit            0x0018ba         0x34
+ .dinit           0x0018ba         0x34 data_init
 
-.init.delay32     0x0018ea         0x1c
- .init.delay32    0x0018ea         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x0018ea                  ___delay32
+.init.delay32     0x0018ee         0x1c
+ .init.delay32    0x0018ee         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x0018ee                  ___delay32
