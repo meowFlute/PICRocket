@@ -19,7 +19,7 @@
 #define servo4_Offest 0
 #define servo4_Scalar 0 
 
-#pragma config FWDTEN = OFF   // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
+_FWDT(FWDTEN_OFF);
 _FOSCSEL(FNOSC_FRC);          // 8MHz oscillator
 _FICD(ICS_PGx3);              // Use debugging pins 9 & 10
 _FOSC(OSCIOFNC_OFF);          // Disable clock output on pin 8
