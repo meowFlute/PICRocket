@@ -9,19 +9,6 @@
 #include <i2c.h>
 #define timerCount 164
 
-//offset and scalars for servos
-#define servo0_Offest -12 //verified to be pretty close Wednesday 6/3/2015
-#define servo0_Scalar 1
-    
-#define servo1_Offest 0
-#define servo1_Scalar 1
-    
-#define servo2_Offest 0
-#define servo2_Scalar 1
-
-#define servo3_Offest 0
-#define servo3_Scalar 1 
-
 _FWDT(FWDTEN_OFF);
 _FOSCSEL(FNOSC_FRC);          // 8MHz oscillator
 _FICD(ICS_PGx3);              // Use debugging pins 9 & 10
@@ -34,23 +21,29 @@ void Setup_I2C1(void);
 
 int main()
 {
-    
-    Setup_PWM();
-
     //Debug LED on RA3
     _TRISA3 = 0;
     _ANSA3 = 0;
     _LATA3 = 1;
-    Actuate_Servo(0,(0*servo0_Scalar)+servo0_Offest);
-    Actuate_Servo(1,(0*servo1_Scalar)+servo1_Offest);
-    Actuate_Servo(2,55);
-    Actuate_Servo(3,-55);
+    
+    Setup_PWM();
+    
+    Actuate_Servo(0,(55*servo0_Scalar)+servo0_Offest);
+    Actuate_Servo(1,(-55*servo1_Scalar)+servo1_Offest);
+    Actuate_Servo(2,(55*servo2_Scalar)+servo2_Offest);
+    Actuate_Servo(3,(-55*servo3_Scalar)+servo3_Offest);
     
     //Initialize the I2C connection
     Setup_I2C1();
 
     //Initialize the accelerometer
-    Setup_MPU6050();
+    unsigned char error;
+    do          //keep setting it up until a solid connection is established
+	{           //and we verify that all registers were set correctly
+		Setup_MPU6050();
+		error = MPU6050_Check_Registers();
+	}
+	while(error==1);
 
     Calibrate_Gyros();
     Zero_Sensors();
@@ -60,13 +53,13 @@ int main()
     //Turn off LED when PIC Initialization is complete
     _LATA3 = 0;
 
-    //Start the PID loop
-    T1CONbits.TON = 1;
-
     Actuate_Servo(0,(0*servo0_Scalar)+servo0_Offest);
     Actuate_Servo(1,(0*servo1_Scalar)+servo1_Offest);
     Actuate_Servo(2,(0*servo2_Scalar)+servo2_Offest);
     Actuate_Servo(3,(0*servo3_Scalar)+servo3_Offest);
+    
+    //Start the PID loop
+    T1CONbits.TON = 1;
     
     while(1){}
     
@@ -117,7 +110,7 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt()
 
     LATAbits.LATA2 ^= 1;
     Get_Gyro_Rates();
-    Get_Accel_Values();
+    //Get_Accel_Values(); //we don't care about these during running time
 
     Update_PID();
     Update_Servos();

@@ -202,12 +202,12 @@ int MPU6050_Test_I2C()
 	}
 }
 
-int MPU6050_Check_Registers()
+unsigned char MPU6050_Check_Registers()
 {
 	unsigned char Data = 0x00;
 	unsigned char Failed = 0;
 
-        LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I, &Data, 1);
+    LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I, &Data, 1);
 	LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_SMPLRT_DIV, &Data, 1);
 	if(Data != 0x01) Failed = 1;
 	LDByteReadI2C(MPU6050_ADDRESS, MPU6050_RA_CONFIG, &Data, 1);
@@ -545,17 +545,17 @@ void Zero_Sensors(void)
 	float BUFFER_YANGLE = 0;
         float BUFFER_XANGLE = 0;
 	int x = 0;
-	for(x=0; x<1000; x++)
+	for(x=0; x<100; x++)
 	{
 		Get_Accel_Values();
 		BUFFER_ZANGLE += ACCEL_ZOUT;
 		BUFFER_YANGLE += ACCEL_YOUT;
-                BUFFER_XANGLE += ACCEL_XOUT;
+        BUFFER_XANGLE += ACCEL_XOUT;
 		__delay_ms(1);
 	}
 
-
+    //we don't have to divide by 100 because the tangent takes care of that
 	GYRO_ZANGLE = 57.2958*atan(BUFFER_YANGLE/BUFFER_XANGLE);
 	GYRO_YANGLE = 0;
-        GYRO_XANGLE = 57.2958*atan(BUFFER_ZANGLE/BUFFER_YANGLE);
+    GYRO_XANGLE = 57.2958*atan(BUFFER_ZANGLE/BUFFER_YANGLE);
 }

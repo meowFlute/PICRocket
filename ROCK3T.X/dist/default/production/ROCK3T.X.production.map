@@ -120,22 +120,22 @@ Program Memory  [Origin = 0x200, Length = 0x5600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x6dc           0xa4a  (2634)
-.text                        0x8dc               0xfde          0x17cd  (6093)
-.dinit                      0x18ba                0x34            0x4e  (78)
-.init.delay32               0x18ee                0x1c            0x2a  (42)
+.text                        0x8dc              0x102e          0x1845  (6213)
+.dinit                      0x190a                0x26            0x39  (57)
+.init.delay32               0x1930                0x1c            0x2a  (42)
 
-                     Total program memory used (bytes):         0x228f  (8847) 26%
+                     Total program memory used (bytes):         0x22f2  (8946) 27%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0            0xfa  (250)
-.ndata                       0x8fa                   0            0x2e  (46)
-.nbss                        0x928                   0             0x2  (2)
+.nbss                        0x800                   0            0xb2  (178)
+.ndata                       0x8b2                   0            0x1a  (26)
+.nbss                        0x8cc                   0             0x2  (2)
 
-                        Total data memory used (bytes):          0x12a  (298) 14%
+                        Total data memory used (bytes):           0xce  (206) 10%
 
 
 Dynamic Memory Usage
@@ -143,9 +143,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x92a                               0x6d6  (1750)
+stack                        0x8ce                               0x732  (1842)
 
-                        Maximum dynamic memory (bytes):          0x6d6  (1750)
+                        Maximum dynamic memory (bytes):          0x732  (1842)
 
 
 External Symbols in Data Memory (by address):
@@ -179,164 +179,114 @@ External Symbols in Data Memory (by address):
                     0x0856                  _KALMAN_ZANGLE
                     0x085a                  _COMPLEMENTARY_XANGLE
                     0x085e                  _COMPLEMENTARY_YANGLE
-                    0x0862                  _TARGET_XANGLE
-                    0x0866                  _TARGET_YANGLE
-                    0x086a                  _TARGET_ZRATE
-                    0x086e                  _PID_XOUTPUT
-                    0x0872                  _PID_YOUTPUT
-                    0x0876                  _PID_ZOUTPUT
-                    0x087a                  _XERROR
-                    0x087e                  _YERROR
-                    0x0882                  _ZERROR
-                    0x0886                  _throttle
-                    0x088a                  _OC1_output
-                    0x088e                  _OC2_output
-                    0x0892                  _OC3_output
-                    0x0896                  _OC4_output
-                    0x089a                  _count
-                    0x089c                  _XINTEGRAL
-                    0x08a0                  _YINTEGRAL
-                    0x08a4                  _throttle_input
-                    0x08a6                  _yaw_input
-                    0x08a8                  _pitch_input
-                    0x08aa                  _roll_input
-                    0x08ac                  _rollKD
-                    0x08b0                  _rollKP
-                    0x08b4                  _pitchKD
-                    0x08b8                  _pitchKP
-                    0x08bc                  _yawKD
-                    0x08c0                  _yawKP
-                    0x08c4                  _rollDesired
-                    0x08c8                  _pitchDesired
-                    0x08cc                  _yawDesired
-                    0x08d0                  _rollErr
-                    0x08d4                  _rollDot
-                    0x08d8                  _rollCommand
-                    0x08dc                  _pitchErr
-                    0x08e0                  _pitchDot
-                    0x08e4                  _pitchCommand
-                    0x08e8                  _yawErr
-                    0x08ec                  _yawDot
-                    0x08f0                  _yawCommand
-                    0x08f4                  _OC4R
-                    0x08f6                  __TMR3
-                    0x08f8                  __PR3
-                    0x08fa                  _GYRO_XOUT_L
-                    0x08fb                  _GYRO_XOUT_H
-                    0x08fc                  _GYRO_YOUT_L
-                    0x08fd                  _GYRO_YOUT_H
-                    0x08fe                  _GYRO_ZOUT_L
-                    0x08ff                  _GYRO_ZOUT_H
-                    0x0900                  _ACCEL_XOUT_L
-                    0x0901                  _ACCEL_XOUT_H
-                    0x0902                  _ACCEL_YOUT_L
-                    0x0903                  _ACCEL_YOUT_H
-                    0x0904                  _ACCEL_ZOUT_L
-                    0x0905                  _ACCEL_ZOUT_H
-                    0x0906                  _GYRO_XOUT_OFFSET
-                    0x0908                  _GYRO_YOUT_OFFSET
-                    0x090a                  _GYRO_ZOUT_OFFSET
-                    0x090c                  _KP
-                    0x0910                  _KI
-                    0x0914                  _KD
-                    0x0918                  _ZKP
-                    0x091c                  _ZKD
-                    0x0920                  _PWMReg
+                    0x0862                  _count
+                    0x0864                  _rollKD
+                    0x0868                  _rollKP
+                    0x086c                  _pitchKD
+                    0x0870                  _pitchKP
+                    0x0874                  _yawKD
+                    0x0878                  _yawKP
+                    0x087c                  _rollDesired
+                    0x0880                  _pitchDesired
+                    0x0884                  _yawDesired
+                    0x0888                  _rollErr
+                    0x088c                  _rollDot
+                    0x0890                  _rollCommand
+                    0x0894                  _pitchErr
+                    0x0898                  _pitchDot
+                    0x089c                  _pitchCommand
+                    0x08a0                  _yawErr
+                    0x08a4                  _yawDot
+                    0x08a8                  _yawCommand
+                    0x08ac                  _OC4R
+                    0x08ae                  __TMR3
+                    0x08b0                  __PR3
+                    0x08b2                  _GYRO_XOUT_L
+                    0x08b3                  _GYRO_XOUT_H
+                    0x08b4                  _GYRO_YOUT_L
+                    0x08b5                  _GYRO_YOUT_H
+                    0x08b6                  _GYRO_ZOUT_L
+                    0x08b7                  _GYRO_ZOUT_H
+                    0x08b8                  _ACCEL_XOUT_L
+                    0x08b9                  _ACCEL_XOUT_H
+                    0x08ba                  _ACCEL_YOUT_L
+                    0x08bb                  _ACCEL_YOUT_H
+                    0x08bc                  _ACCEL_ZOUT_L
+                    0x08bd                  _ACCEL_ZOUT_H
+                    0x08be                  _GYRO_XOUT_OFFSET
+                    0x08c0                  _GYRO_YOUT_OFFSET
+                    0x08c2                  _GYRO_ZOUT_OFFSET
+                    0x08c4                  _PWMReg
 
 External Symbols in Data Memory (by name):
 
                     0x0842                  _ACCEL_XANGLE
                     0x0800                  _ACCEL_XOUT
-                    0x0901                  _ACCEL_XOUT_H
-                    0x0900                  _ACCEL_XOUT_L
+                    0x08b9                  _ACCEL_XOUT_H
+                    0x08b8                  _ACCEL_XOUT_L
                     0x0846                  _ACCEL_YANGLE
                     0x0802                  _ACCEL_YOUT
-                    0x0903                  _ACCEL_YOUT_H
-                    0x0902                  _ACCEL_YOUT_L
+                    0x08bb                  _ACCEL_YOUT_H
+                    0x08ba                  _ACCEL_YOUT_L
                     0x084a                  _ACCEL_ZANGLE
                     0x0804                  _ACCEL_ZOUT
-                    0x0905                  _ACCEL_ZOUT_H
-                    0x0904                  _ACCEL_ZOUT_L
+                    0x08bd                  _ACCEL_ZOUT_H
+                    0x08bc                  _ACCEL_ZOUT_L
                     0x085a                  _COMPLEMENTARY_XANGLE
                     0x085e                  _COMPLEMENTARY_YANGLE
                     0x082a                  _GYRO_XANGLE
                     0x0836                  _GYRO_XANGLERAW
                     0x0818                  _GYRO_XOUT
-                    0x08fb                  _GYRO_XOUT_H
-                    0x08fa                  _GYRO_XOUT_L
-                    0x0906                  _GYRO_XOUT_OFFSET
+                    0x08b3                  _GYRO_XOUT_H
+                    0x08b2                  _GYRO_XOUT_L
+                    0x08be                  _GYRO_XOUT_OFFSET
                     0x081e                  _GYRO_XOUT_OFFSET_1000SUM
                     0x0806                  _GYRO_XRATE
                     0x0812                  _GYRO_XRATERAW
                     0x082e                  _GYRO_YANGLE
                     0x083a                  _GYRO_YANGLERAW
                     0x081a                  _GYRO_YOUT
-                    0x08fd                  _GYRO_YOUT_H
-                    0x08fc                  _GYRO_YOUT_L
-                    0x0908                  _GYRO_YOUT_OFFSET
+                    0x08b5                  _GYRO_YOUT_H
+                    0x08b4                  _GYRO_YOUT_L
+                    0x08c0                  _GYRO_YOUT_OFFSET
                     0x0822                  _GYRO_YOUT_OFFSET_1000SUM
                     0x080a                  _GYRO_YRATE
                     0x0814                  _GYRO_YRATERAW
                     0x0832                  _GYRO_ZANGLE
                     0x083e                  _GYRO_ZANGLERAW
                     0x081c                  _GYRO_ZOUT
-                    0x08ff                  _GYRO_ZOUT_H
-                    0x08fe                  _GYRO_ZOUT_L
-                    0x090a                  _GYRO_ZOUT_OFFSET
+                    0x08b7                  _GYRO_ZOUT_H
+                    0x08b6                  _GYRO_ZOUT_L
+                    0x08c2                  _GYRO_ZOUT_OFFSET
                     0x0826                  _GYRO_ZOUT_OFFSET_1000SUM
                     0x080e                  _GYRO_ZRATE
                     0x0816                  _GYRO_ZRATERAW
                     0x084e                  _KALMAN_XANGLE
                     0x0852                  _KALMAN_YANGLE
                     0x0856                  _KALMAN_ZANGLE
-                    0x0914                  _KD
-                    0x0910                  _KI
-                    0x090c                  _KP
-                    0x088a                  _OC1_output
-                    0x088e                  _OC2_output
-                    0x0892                  _OC3_output
-                    0x08f4                  _OC4R
-                    0x0896                  _OC4_output
-                    0x086e                  _PID_XOUTPUT
-                    0x0872                  _PID_YOUTPUT
-                    0x0876                  _PID_ZOUTPUT
-                    0x0920                  _PWMReg
-                    0x0862                  _TARGET_XANGLE
-                    0x0866                  _TARGET_YANGLE
-                    0x086a                  _TARGET_ZRATE
-                    0x087a                  _XERROR
-                    0x089c                  _XINTEGRAL
-                    0x087e                  _YERROR
-                    0x08a0                  _YINTEGRAL
-                    0x0882                  _ZERROR
-                    0x091c                  _ZKD
-                    0x0918                  _ZKP
-                    0x08f8                  __PR3
-                    0x08f6                  __TMR3
-                    0x089a                  _count
-                    0x08e4                  _pitchCommand
-                    0x08c8                  _pitchDesired
-                    0x08e0                  _pitchDot
-                    0x08dc                  _pitchErr
-                    0x08b4                  _pitchKD
-                    0x08b8                  _pitchKP
-                    0x08a8                  _pitch_input
-                    0x08d8                  _rollCommand
-                    0x08c4                  _rollDesired
-                    0x08d4                  _rollDot
-                    0x08d0                  _rollErr
-                    0x08ac                  _rollKD
-                    0x08b0                  _rollKP
-                    0x08aa                  _roll_input
-                    0x0886                  _throttle
-                    0x08a4                  _throttle_input
-                    0x08f0                  _yawCommand
-                    0x08cc                  _yawDesired
-                    0x08ec                  _yawDot
-                    0x08e8                  _yawErr
-                    0x08bc                  _yawKD
-                    0x08c0                  _yawKP
-                    0x08a6                  _yaw_input
+                    0x08ac                  _OC4R
+                    0x08c4                  _PWMReg
+                    0x08b0                  __PR3
+                    0x08ae                  __TMR3
+                    0x0862                  _count
+                    0x089c                  _pitchCommand
+                    0x0880                  _pitchDesired
+                    0x0898                  _pitchDot
+                    0x0894                  _pitchErr
+                    0x086c                  _pitchKD
+                    0x0870                  _pitchKP
+                    0x0890                  _rollCommand
+                    0x087c                  _rollDesired
+                    0x088c                  _rollDot
+                    0x0888                  _rollErr
+                    0x0864                  _rollKD
+                    0x0868                  _rollKP
+                    0x08a8                  _yawCommand
+                    0x0884                  _yawDesired
+                    0x08a4                  _yawDot
+                    0x08a0                  _yawErr
+                    0x0874                  _yawKD
+                    0x0878                  _yawKP
 
 External Symbols in Program Memory (by address):
 
@@ -383,42 +333,42 @@ External Symbols in Program Memory (by address):
                   0x0008dc                  _Setup_MPU6050
                   0x000a6e                  _MPU6050_Test_I2C
                   0x000a92                  _MPU6050_Check_Registers
-                  0x000e4e                  _Calibrate_Gyros
-                  0x000f4c                  _Get_Accel_Values
-                  0x000fc4                  _Get_Accel_Angles
-                  0x0010e0                  _Get_Gyro_Rates
-                  0x00120c                  _ACKStatus
-                  0x00121c                  _LDByteWriteI2C
-                  0x0012ba                  _LDByteReadI2C
-                  0x00137a                  _Zero_Sensors
-                  0x001438                  _Actuate_Servo
-                  0x0014e8                  _Setup_PWM
-                  0x001598                  _Initialize_PID
-                  0x001616                  _Update_PID
-                  0x001744                  _Update_Servos
-                  0x0017a2                  _main
-                  0x0017f6                  _Setup_I2C1
-                  0x001818                  _Setup_Timer1
-                  0x001844                  __MI2C1Interrupt
-                  0x00184c                  __T1Interrupt
-                  0x00188e                  __T3Interrupt
-                  0x0018ee                  ___delay32
+                  0x000e4c                  _Calibrate_Gyros
+                  0x000f4a                  _Get_Accel_Values
+                  0x000fc2                  _Get_Accel_Angles
+                  0x0010de                  _Get_Gyro_Rates
+                  0x00120a                  _ACKStatus
+                  0x00121a                  _LDByteWriteI2C
+                  0x0012b8                  _LDByteReadI2C
+                  0x001378                  _Zero_Sensors
+                  0x001436                  _Actuate_Servo
+                  0x0014e6                  _Setup_PWM
+                  0x001596                  _Initialize_PID
+                  0x00163e                  _Update_PID
+                  0x001776                  _Update_Servos
+                  0x0017e0                  _main
+                  0x001848                  _Setup_I2C1
+                  0x00186a                  _Setup_Timer1
+                  0x001896                  __MI2C1Interrupt
+                  0x00189e                  __T1Interrupt
+                  0x0018de                  __T3Interrupt
+                  0x001930                  ___delay32
 
 External Symbols in Program Memory (by name):
 
-                  0x00120c                  _ACKStatus
-                  0x001438                  _Actuate_Servo
-                  0x000e4e                  _Calibrate_Gyros
+                  0x00120a                  _ACKStatus
+                  0x001436                  _Actuate_Servo
+                  0x000e4c                  _Calibrate_Gyros
                   0x00029e                  _CloseI2C1
                   0x0002ae                  _ConfigIntI2C1
                   0x000416                  _DataRdyI2C1
-                  0x000fc4                  _Get_Accel_Angles
-                  0x000f4c                  _Get_Accel_Values
-                  0x0010e0                  _Get_Gyro_Rates
+                  0x000fc2                  _Get_Accel_Angles
+                  0x000f4a                  _Get_Accel_Values
+                  0x0010de                  _Get_Gyro_Rates
                   0x00031e                  _IdleI2C1
-                  0x001598                  _Initialize_PID
-                  0x0012ba                  _LDByteReadI2C
-                  0x00121c                  _LDByteWriteI2C
+                  0x001596                  _Initialize_PID
+                  0x0012b8                  _LDByteReadI2C
+                  0x00121a                  _LDByteWriteI2C
                   0x000a92                  _MPU6050_Check_Registers
                   0x000a6e                  _MPU6050_Test_I2C
                   0x0003c2                  _MasterWriteI2C1
@@ -426,21 +376,21 @@ External Symbols in Program Memory (by name):
                   0x0003e2                  _NotAckI2C1
                   0x0003ec                  _OpenI2C1
                   0x0003fe                  _RestartI2C1
-                  0x0017f6                  _Setup_I2C1
+                  0x001848                  _Setup_I2C1
                   0x0008dc                  _Setup_MPU6050
-                  0x0014e8                  _Setup_PWM
-                  0x001818                  _Setup_Timer1
+                  0x0014e6                  _Setup_PWM
+                  0x00186a                  _Setup_Timer1
                   0x000406                  _StartI2C1
                   0x00040e                  _StopI2C1
-                  0x001616                  _Update_PID
-                  0x001744                  _Update_Servos
-                  0x00137a                  _Zero_Sensors
+                  0x00163e                  _Update_PID
+                  0x001776                  _Update_Servos
+                  0x001378                  _Zero_Sensors
                   0x00029a                  __DefaultInterrupt
-                  0x001844                  __MI2C1Interrupt
-                  0x00184c                  __T1Interrupt
-                  0x00188e                  __T3Interrupt
+                  0x001896                  __MI2C1Interrupt
+                  0x00189e                  __T1Interrupt
+                  0x0018de                  __T3Interrupt
                   0x000426                  ___addsf3
-                  0x0018ee                  ___delay32
+                  0x001930                  ___delay32
                   0x0005aa                  ___divsf3
                   0x00062e                  ___divsi3
                   0x00064c                  ___eqsf2
@@ -467,7 +417,7 @@ External Symbols in Program Memory (by name):
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
                   0x0004e0                  _atanf
-                  0x0017a2                  _main
+                  0x0017e0                  _main
                   0x00079e                  _sqrtf
 
 Memory Configuration
@@ -648,24 +598,24 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3b77
+.debug_info       0x000000       0x3942
  *(.debug_info)
  .debug_info      0x000000        0xc9b build/default/production/MPU6050.o
- .debug_info      0x000c9b       0x15ad build/default/production/main.o
- .debug_info      0x002248       0x192f build/default/production/PWM_PID.o
+ .debug_info      0x000c9b       0x1378 build/default/production/main.o
+ .debug_info      0x002013       0x192f build/default/production/PWM_PID.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x459
+.debug_abbrev     0x000000        0x45b
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x177 build/default/production/MPU6050.o
- .debug_abbrev    0x000177        0x185 build/default/production/main.o
- .debug_abbrev    0x0002fc        0x15d build/default/production/PWM_PID.o
+ .debug_abbrev    0x000177        0x187 build/default/production/main.o
+ .debug_abbrev    0x0002fe        0x15d build/default/production/PWM_PID.o
 
-.debug_line       0x000000       0x110f
+.debug_line       0x000000       0x112f
  *(.debug_line)
  .debug_line      0x000000        0xa28 build/default/production/MPU6050.o
- .debug_line      0x000a28        0x353 build/default/production/main.o
- .debug_line      0x000d7b        0x394 build/default/production/PWM_PID.o
+ .debug_line      0x000a28        0x35b build/default/production/main.o
+ .debug_line      0x000d83        0x3ac build/default/production/PWM_PID.o
 
 .debug_frame      0x000000        0x19c
  *(.debug_frame)
@@ -686,14 +636,14 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x771
+                  0x000000        0x621
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0xea build/default/production/MPU6050.o
  .debug_pubnames
-                  0x0000ea        0x621 build/default/production/main.o
+                  0x0000ea        0x4d1 build/default/production/main.o
  .debug_pubnames
-                  0x00070b         0x66 build/default/production/PWM_PID.o
+                  0x0005bb         0x66 build/default/production/PWM_PID.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -719,12 +669,12 @@ __FDS
                   0x000014          0x4 LONG 0x29a DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x29a DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x29a DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x184c DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x189e DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x29a DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000022          0x4 LONG 0x29a DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000024          0x4 LONG 0x188e DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000024          0x4 LONG 0x18de DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002a          0x4 LONG 0x29a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -733,7 +683,7 @@ __FDS
                   0x000030          0x4 LONG 0x29a DEFINED (__Interrupt14)?ABSOLUTE (__Interrupt14):ABSOLUTE (__DefaultInterrupt)
                   0x000032          0x4 LONG 0x29a DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000034          0x4 LONG 0x29a DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000036          0x4 LONG 0x1844 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000036          0x4 LONG 0x1896 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000038          0x4 LONG 0x29a DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003a          0x4 LONG 0x29a DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003c          0x4 LONG 0x29a DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -847,12 +797,12 @@ __FDS
                   0x000114          0x4 LONG 0x29a DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x29a DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x29a DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x184c DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x189e DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x29a DEFINED (__AltInterrupt4)?ABSOLUTE (__AltInterrupt4):DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000122          0x4 LONG 0x29a DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000124          0x4 LONG 0x188e DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000124          0x4 LONG 0x18de DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012a          0x4 LONG 0x29a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -861,7 +811,7 @@ __FDS
                   0x000130          0x4 LONG 0x29a DEFINED (__AltInterrupt14)?ABSOLUTE (__AltInterrupt14):DEFINED (__Interrupt14)?ABSOLUTE (__Interrupt14):ABSOLUTE (__DefaultInterrupt)
                   0x000132          0x4 LONG 0x29a DEFINED (__AltNVMInterrupt)?ABSOLUTE (__AltNVMInterrupt):DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000134          0x4 LONG 0x29a DEFINED (__AltSI2C1Interrupt)?ABSOLUTE (__AltSI2C1Interrupt):DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000136          0x4 LONG 0x1844 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000136          0x4 LONG 0x1896 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000138          0x4 LONG 0x29a DEFINED (__AltCompInterrupt)?ABSOLUTE (__AltCompInterrupt):DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013a          0x4 LONG 0x29a DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013c          0x4 LONG 0x29a DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1664,8 +1614,8 @@ __c30_signature
  __c30_signature
                   0x0004b8          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
-.nbss               0x0800         0xfa
- .nbss              0x0800         0xfa build/default/production/main.o
+.nbss               0x0800         0xb2
+ .nbss              0x0800         0xb2 build/default/production/main.o
                     0x0800                  _ACCEL_XOUT
                     0x0802                  _ACCEL_YOUT
                     0x0804                  _ACCEL_ZOUT
@@ -1695,107 +1645,82 @@ __c30_signature
                     0x0856                  _KALMAN_ZANGLE
                     0x085a                  _COMPLEMENTARY_XANGLE
                     0x085e                  _COMPLEMENTARY_YANGLE
-                    0x0862                  _TARGET_XANGLE
-                    0x0866                  _TARGET_YANGLE
-                    0x086a                  _TARGET_ZRATE
-                    0x086e                  _PID_XOUTPUT
-                    0x0872                  _PID_YOUTPUT
-                    0x0876                  _PID_ZOUTPUT
-                    0x087a                  _XERROR
-                    0x087e                  _YERROR
-                    0x0882                  _ZERROR
-                    0x0886                  _throttle
-                    0x088a                  _OC1_output
-                    0x088e                  _OC2_output
-                    0x0892                  _OC3_output
-                    0x0896                  _OC4_output
-                    0x089a                  _count
-                    0x089c                  _XINTEGRAL
-                    0x08a0                  _YINTEGRAL
-                    0x08a4                  _throttle_input
-                    0x08a6                  _yaw_input
-                    0x08a8                  _pitch_input
-                    0x08aa                  _roll_input
-                    0x08ac                  _rollKD
-                    0x08b0                  _rollKP
-                    0x08b4                  _pitchKD
-                    0x08b8                  _pitchKP
-                    0x08bc                  _yawKD
-                    0x08c0                  _yawKP
-                    0x08c4                  _rollDesired
-                    0x08c8                  _pitchDesired
-                    0x08cc                  _yawDesired
-                    0x08d0                  _rollErr
-                    0x08d4                  _rollDot
-                    0x08d8                  _rollCommand
-                    0x08dc                  _pitchErr
-                    0x08e0                  _pitchDot
-                    0x08e4                  _pitchCommand
-                    0x08e8                  _yawErr
-                    0x08ec                  _yawDot
-                    0x08f0                  _yawCommand
-                    0x08f4                  _OC4R
-                    0x08f6                  __TMR3
-                    0x08f8                  __PR3
+                    0x0862                  _count
+                    0x0864                  _rollKD
+                    0x0868                  _rollKP
+                    0x086c                  _pitchKD
+                    0x0870                  _pitchKP
+                    0x0874                  _yawKD
+                    0x0878                  _yawKP
+                    0x087c                  _rollDesired
+                    0x0880                  _pitchDesired
+                    0x0884                  _yawDesired
+                    0x0888                  _rollErr
+                    0x088c                  _rollDot
+                    0x0890                  _rollCommand
+                    0x0894                  _pitchErr
+                    0x0898                  _pitchDot
+                    0x089c                  _pitchCommand
+                    0x08a0                  _yawErr
+                    0x08a4                  _yawDot
+                    0x08a8                  _yawCommand
+                    0x08ac                  _OC4R
+                    0x08ae                  __TMR3
+                    0x08b0                  __PR3
 
-.ndata              0x08fa         0x2e
- .ndata             0x08fa         0x2e build/default/production/main.o
-                    0x08fa                  _GYRO_XOUT_L
-                    0x08fb                  _GYRO_XOUT_H
-                    0x08fc                  _GYRO_YOUT_L
-                    0x08fd                  _GYRO_YOUT_H
-                    0x08fe                  _GYRO_ZOUT_L
-                    0x08ff                  _GYRO_ZOUT_H
-                    0x0900                  _ACCEL_XOUT_L
-                    0x0901                  _ACCEL_XOUT_H
-                    0x0902                  _ACCEL_YOUT_L
-                    0x0903                  _ACCEL_YOUT_H
-                    0x0904                  _ACCEL_ZOUT_L
-                    0x0905                  _ACCEL_ZOUT_H
-                    0x0906                  _GYRO_XOUT_OFFSET
-                    0x0908                  _GYRO_YOUT_OFFSET
-                    0x090a                  _GYRO_ZOUT_OFFSET
-                    0x090c                  _KP
-                    0x0910                  _KI
-                    0x0914                  _KD
-                    0x0918                  _ZKP
-                    0x091c                  _ZKD
-                    0x0920                  _PWMReg
+.ndata              0x08b2         0x1a
+ .ndata             0x08b2         0x1a build/default/production/main.o
+                    0x08b2                  _GYRO_XOUT_L
+                    0x08b3                  _GYRO_XOUT_H
+                    0x08b4                  _GYRO_YOUT_L
+                    0x08b5                  _GYRO_YOUT_H
+                    0x08b6                  _GYRO_ZOUT_L
+                    0x08b7                  _GYRO_ZOUT_H
+                    0x08b8                  _ACCEL_XOUT_L
+                    0x08b9                  _ACCEL_XOUT_H
+                    0x08ba                  _ACCEL_YOUT_L
+                    0x08bb                  _ACCEL_YOUT_H
+                    0x08bc                  _ACCEL_ZOUT_L
+                    0x08bd                  _ACCEL_ZOUT_H
+                    0x08be                  _GYRO_XOUT_OFFSET
+                    0x08c0                  _GYRO_YOUT_OFFSET
+                    0x08c2                  _GYRO_ZOUT_OFFSET
+                    0x08c4                  _PWMReg
 
-.nbss               0x0928          0x2
- .nbss              0x0928          0x2 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
-                    0x0928                  _errno
+.nbss               0x08cc          0x2
+ .nbss              0x08cc          0x2 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libm-elf.a(errno.eo)
+                    0x08cc                  _errno
 
-.text             0x0008dc        0xfde
- .text            0x0008dc        0xb5c build/default/production/MPU6050.o
+.text             0x0008dc       0x102e
+ .text            0x0008dc        0xb5a build/default/production/MPU6050.o
                   0x0008dc                  _Setup_MPU6050
                   0x000a6e                  _MPU6050_Test_I2C
                   0x000a92                  _MPU6050_Check_Registers
-                  0x000e4e                  _Calibrate_Gyros
-                  0x000f4c                  _Get_Accel_Values
-                  0x000fc4                  _Get_Accel_Angles
-                  0x0010e0                  _Get_Gyro_Rates
-                  0x00120c                  _ACKStatus
-                  0x00121c                  _LDByteWriteI2C
-                  0x0012ba                  _LDByteReadI2C
-                  0x00137a                  _Zero_Sensors
- .text            0x001438        0x36a build/default/production/PWM_PID.o
-                  0x001438                  _Actuate_Servo
-                  0x0014e8                  _Setup_PWM
-                  0x001598                  _Initialize_PID
-                  0x001616                  _Update_PID
-                  0x001744                  _Update_Servos
- .text            0x0017a2        0x118 build/default/production/main.o
-                  0x0017a2                  _main
-                  0x0017f6                  _Setup_I2C1
-                  0x001818                  _Setup_Timer1
-                  0x001844                  __MI2C1Interrupt
-                  0x00184c                  __T1Interrupt
-                  0x00188e                  __T3Interrupt
+                  0x000e4c                  _Calibrate_Gyros
+                  0x000f4a                  _Get_Accel_Values
+                  0x000fc2                  _Get_Accel_Angles
+                  0x0010de                  _Get_Gyro_Rates
+                  0x00120a                  _ACKStatus
+                  0x00121a                  _LDByteWriteI2C
+                  0x0012b8                  _LDByteReadI2C
+                  0x001378                  _Zero_Sensors
+ .text            0x001436        0x3aa build/default/production/PWM_PID.o
+                  0x001436                  _Actuate_Servo
+                  0x0014e6                  _Setup_PWM
+                  0x001596                  _Initialize_PID
+                  0x00163e                  _Update_PID
+                  0x001776                  _Update_Servos
+ .text            0x0017e0        0x12a build/default/production/main.o
+                  0x0017e0                  _main
+                  0x001848                  _Setup_I2C1
+                  0x00186a                  _Setup_Timer1
+                  0x001896                  __MI2C1Interrupt
+                  0x00189e                  __T1Interrupt
+                  0x0018de                  __T3Interrupt
 
-.dinit            0x0018ba         0x34
- .dinit           0x0018ba         0x34 data_init
+.dinit            0x00190a         0x26
+ .dinit           0x00190a         0x26 data_init
 
-.init.delay32     0x0018ee         0x1c
- .init.delay32    0x0018ee         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
-                  0x0018ee                  ___delay32
+.init.delay32     0x001930         0x1c
+ .init.delay32    0x001930         0x1c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(delay32.eo)
+                  0x001930                  ___delay32

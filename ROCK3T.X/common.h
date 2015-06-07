@@ -14,6 +14,19 @@
 extern "C" {
 #endif
     
+//offset and scalars for servos
+#define servo0_Offest -12.0   //verified to be pretty close Wednesday 6/3/2015
+#define servo0_Scalar 1.2     //seems pretty spot on to both sides 6/6/2015
+    
+#define servo1_Offest 14.0    //verified "" 6/6/2015
+#define servo1_Scalar 1.16    //seems close 6/6/2015    
+    
+#define servo2_Offest 14.0    //verified "" 6/6/2015
+#define servo2_Scalar 1.0
+
+#define servo3_Offest -5.0    //verified "" 6/6/2015
+#define servo3_Scalar 1.0     
+    
 extern unsigned int OC4R, _TMR3, _PR3;
 extern volatile unsigned int* PWMReg[]; 
     
@@ -86,31 +99,6 @@ extern float KALMAN_ZANGLE;
 extern signed int GYRO_XOUT_OFFSET;
 extern signed int GYRO_YOUT_OFFSET;
 extern signed int GYRO_ZOUT_OFFSET;
-
-extern float PID_XOUTPUT;
-extern float PID_YOUTPUT;
-extern float PID_ZOUTPUT;
-
-extern float TARGET_XANGLE;
-extern float TARGET_YANGLE;
-extern float TARGET_ZRATE;
-
-extern float COMPLEMENTARY_XANGLE;
-extern float COMPLEMENTARY_XANGLEPREV;
-extern float COMPLEMENTARY_YANGLE;
-extern float COMPLEMENTARY_YANGLEPREV;
-
-extern float throttle;
-
-extern float KP;
-extern float KD;
-extern float KI;
-extern float ZKP;
-extern float ZKD;
-
-extern float XERROR;
-extern float YERROR;
-extern float ZERROR;
 
 extern float OC1_output;
 extern float OC2_output;

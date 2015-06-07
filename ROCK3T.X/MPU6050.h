@@ -132,7 +132,7 @@ extern "C" {
 
 UINT8 Setup_MPU6050(void);
 int MPU6050_Test_I2C();
-int MPU6050_Check_Registers();
+unsigned char MPU6050_Check_Registers();
 void Calibrate_Gyros();
 void Get_Accel_Values();
 void Get_Accel_Angles();
