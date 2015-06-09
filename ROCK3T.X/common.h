@@ -27,6 +27,9 @@ extern "C" {
 #define servo3_Offest -5.0    //verified "" 6/6/2015
 #define servo3_Scalar 1.0     
     
+#define MAX_ROLL    15
+#define MAX_PITCH   20
+    
 extern unsigned int OC4R, _TMR3, _PR3;
 extern volatile unsigned int* PWMReg[]; 
     

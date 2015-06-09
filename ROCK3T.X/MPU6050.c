@@ -545,7 +545,7 @@ void Zero_Sensors(void)
 	float BUFFER_YANGLE = 0;
         float BUFFER_XANGLE = 0;
 	int x = 0;
-	for(x=0; x<100; x++)
+	for(x=0; x<1000; x++)
 	{
 		Get_Accel_Values();
 		BUFFER_ZANGLE += ACCEL_ZOUT;

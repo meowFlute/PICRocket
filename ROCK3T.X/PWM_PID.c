@@ -124,26 +124,54 @@ void Update_PID()
 
     /* Make sure the roll command doesn't
      * overpower the pitch and yaw commands  */
-    if (rollCommand > 45) 
+    if (rollCommand > MAX_ROLL) 
     { 
-        rollCommand = 45;
+        rollCommand = MAX_ROLL;
     }
-    else if(rollCommand < -45) 
+    else if(rollCommand < -MAX_ROLL) 
     {
-        rollCommand = -45;
+        rollCommand = -MAX_ROLL;
     }
     else
     {
         rollCommand = rollCommand;
     }
+    
+    ///PITCH COMMAND SEGMENT
+    if (pitchCommand > MAX_PITCH) 
+    { 
+        pitchCommand = MAX_PITCH;
+    }
+    else if(pitchCommand < -MAX_PITCH) 
+    {
+        pitchCommand = -MAX_PITCH;
+    }
+    else
+    {
+        pitchCommand = pitchCommand;
+    }
+    
+    ///YAW COMMAND SEGMENT
+    if (yawCommand > MAX_PITCH) 
+    { 
+        yawCommand = MAX_PITCH;
+    }
+    else if(yawCommand < -MAX_PITCH) 
+    {
+        yawCommand = -MAX_PITCH;
+    }
+    else
+    {
+        yawCommand = yawCommand;
+    }
 }
 void Update_Servos()
 {
     //the real deal
-//    Actuate_Servo(0, ((pitchCommand - rollCommand) * (servo0_Scalar)) + servo0_Offest);
-//    Actuate_Servo(1, ((yawCommand + rollCommand) * (servo1_Scalar)) + servo1_Offest);
-//    Actuate_Servo(2, (-(pitchCommand + rollCommand) * (servo2_Scalar)) + servo2_Offest);
-//    Actuate_Servo(3, (-(yawCommand - rollCommand) * (servo3_Scalar)) + servo3_Offest);
+    Actuate_Servo(0, ((pitchCommand - rollCommand) * (servo0_Scalar)) + servo0_Offest);
+    Actuate_Servo(1, ((yawCommand + rollCommand) * (servo1_Scalar)) + servo1_Offest);
+    Actuate_Servo(2, (-(pitchCommand + rollCommand) * (servo2_Scalar)) + servo2_Offest);
+    Actuate_Servo(3, ((-yawCommand + rollCommand) * (servo3_Scalar)) + servo3_Offest);
     
     //for debugging the roll commands on their own
 //    Actuate_Servo(0, ((-rollCommand) * (servo0_Scalar)) + servo0_Offest);
@@ -152,8 +180,8 @@ void Update_Servos()
 //    Actuate_Servo(3, (-(-rollCommand) * (servo3_Scalar)) + servo3_Offest);
     
     //for debugging the yaw and pitch commands on their own
-    Actuate_Servo(0, ((pitchCommand) * (servo0_Scalar)) + servo0_Offest);
-    Actuate_Servo(1, ((yawCommand) * (servo1_Scalar)) + servo1_Offest);
-    Actuate_Servo(2, (-(pitchCommand) * (servo2_Scalar)) + servo2_Offest);
-    Actuate_Servo(3, (-(yawCommand) * (servo3_Scalar)) + servo3_Offest);
+//    Actuate_Servo(0, ((pitchCommand) * (servo0_Scalar)) + servo0_Offest);
+//    Actuate_Servo(1, ((yawCommand) * (servo1_Scalar)) + servo1_Offest);
+//    Actuate_Servo(2, (-(pitchCommand) * (servo2_Scalar)) + servo2_Offest);
+//    Actuate_Servo(3, (-(yawCommand) * (servo3_Scalar)) + servo3_Offest);
 }
